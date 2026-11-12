@@ -42,8 +42,8 @@ export function b6(add, ev, snap) {
   }
   // S94-95 · north: the Bengal coast, Mughal deep green; the governor's seal stamps
   { const st = at(70), sea = Wd('sea', 70), mg = Wd('mughal', 71), view = [66, 4, 110, 26];
-    const map = (t, sealP) => { const pr = K.realMap('sea', { view: [66, 2, 110, 24] }); const T0 = K.place(pr, 'Tranquebar'), Bg = K.place(pr, 'Bengal'); ctx.save(); ctx.globalAlpha = 0.55; K.inkBleed(() => { ctx.beginPath(); ctx.arc(Bg[0], Bg[1] - 20, 170, 0, TAU); }, MUGHAL, 1, Bg[0], Bg[1] - 20, 180, 6); ctx.restore();
-      seaRoute(pr, 'Tranquebar', [[83, 14], [87.5, 19.5]], clamp((t - sea + 0.6) / 1.0)); circle(T0[0], T0[1], 12, P.crimson); K.slip('TRANQUEBAR', T0[0] - 160, T0[1] + 10, 1, 0.02, 30); K.slip('MUGHAL BENGAL', Bg[0] + 290, Bg[1] + 40, 1, -0.02, 34); if (sealP > 0) K.seal(Bg[0], Bg[1] - 40, sealP * 0.6, '☪'); };
+    const map = (t, sealP) => { const pr = K.realMap('sea', { view: [66, 6, 110, 28] }); const T0 = K.place(pr, 'Tranquebar'), Bg = K.place(pr, 'Bengal'); ctx.save(); ctx.globalAlpha = 0.55; K.inkBleed(() => { ctx.beginPath(); ctx.arc(Bg[0], Bg[1] - 20, 170, 0, TAU); }, MUGHAL, 1, Bg[0], Bg[1] - 20, 180, 6); ctx.restore();
+      seaRoute(pr, 'Tranquebar', [[83, 14], [87.5, 19.5]], clamp((t - sea + 0.6) / 1.0)); circle(T0[0], T0[1], 12, P.crimson); K.slip('TRANQUEBAR', T0[0] - 160, T0[1] + 10, 1, 0.02, 30); K.slip('MUGHAL BENGAL', Bg[0] + 290, Bg[1] + 40, 1, -0.02, 34); if (sealP > 0) K.seal(Bg[0], Bg[1] - 40, sealP * 0.6, ''); };
     add({ id: 'B6-S94', at: st, beat: 6, year: 1664, enter: 'whip', cam: K.cam.push(800, 460, 0.06), note: 'a private war at sea', draw(lt, d, t) { map(t, 0); } });
     add({ id: 'B6-S95', at: at(71), beat: 6, year: 1664, cam: K.cam.push(980, 520, 0.05), note: "the Mughal governor's seal", draw(lt, d, t) { map(t, pop(t, mg, 0.2)); } });
     ev(sea - 0.6, 'route', { note: 'route north', dur: 1.0 }); ev(mg, 'seal', { note: 'Mughal seal' });
