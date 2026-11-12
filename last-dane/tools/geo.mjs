@@ -33,14 +33,16 @@ const area = (r) => Math.abs(r.reduce((s, p, i) => { const q = r[(i + 1) % r.len
 function region(file, box, eps, minArea) {
   const out = [];
   for (const f of load(file).features) for (const poly of (f.geometry.type === 'Polygon' ? [f.geometry.coordinates] : f.geometry.coordinates)) {
-    const r = clip(poly[0], box); if (r.length < 3 || area(r) < minArea) continue;
+    const un = []; let off = 0; poly[0].forEach(([x, y], i) => { if (i) { const d = x + off - un[i - 1][0]; if (d > 180) off -= 360; else if (d < -180) off += 360; } un.push([x + off, y]); });   // unwrap the antimeridian
+    { const xs = un.map((q) => q[0]).sort((a, b) => a - b), med = xs[xs.length >> 1], sh = -360 * Math.round(med / 360); if (sh) un.forEach((q) => (q[0] += sh)); }
+    const r = clip(un, box); if (r.length < 3 || area(r) < minArea) continue;
     out.push(dp(r, eps).map(([x, y]) => [+x.toFixed(3), +y.toFixed(3)]));
   }
   return out;
 }
 const geo = {
   source: 'Natural Earth (public domain) via world-atlas 2.0.2',
-  world: { box: [-40, -50, 140, 70], land: region('land-110m.json', [-40, -50, 140, 70], 0.25, 2) },
+  world: { box: [-90, -60, 170, 78], land: region('land-110m.json', [-90, -60, 170, 78], 0.25, 2) },
   south: { box: [75.5, 7.5, 83.5, 14.2], land: region('land-10m.json', [75.5, 7.5, 83.5, 14.2], 0.01, 0.002) },
   sea: { box: [74, -12, 126, 26], land: region('land-50m.json', [74, -12, 126, 26], 0.06, 0.05) },
   north: { box: [2, 52.5, 24, 62], land: region('land-50m.json', [2, 52.5, 24, 62], 0.02, 0.002) },

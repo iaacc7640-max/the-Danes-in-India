@@ -43,7 +43,7 @@ export const snap = (t, x, y, z = 1.22, hold = null) => ({ t, x, y, z, hold });
 
 /** the camera transform at shot-local time lt: returns { x, y, s, tx } (scale s about (x, y), then shift tx) */
 export function camAt(c = cam.push(), lt, d, snaps = [], t0 = 0) {
-  let x = c.x, y = c.y, s = 1, tx = 0;
+  let x = c.x, y = c.y, s = 1, tx = 0, ty = 0;
   const k = eio(clamp(lt / Math.max(0.5, d)));
   if (c.kind === 'push') s = 1 + c.amt * k;
   else if (c.kind === 'drift') { s = c.z; tx = lerp(c.dx / 2, -c.dx / 2, k); }
@@ -53,8 +53,9 @@ export function camAt(c = cam.push(), lt, d, snaps = [], t0 = 0) {
     let p = eob(clamp((lt - st) / 0.12));
     if (sn.hold != null && lt > st + sn.hold) p *= 1 - eio(clamp((lt - st - sn.hold) / 0.3));
     s *= lerp(1, sn.z, p); x = lerp(x, sn.x, clamp(p)); y = lerp(y, sn.y, clamp(p));
+    if (sn.center !== false) { tx += (W / 2 - sn.x) * 0.85 * p; ty += (H * 0.45 - sn.y) * 0.85 * p; }   // pull the target toward frame centre
   }
-  return { x, y, s, tx };
+  return { x, y, s, tx, ty };
 }
 
 // ═════════════════════════ IDLE LIFE ═════════════════════════
@@ -70,3 +71,6 @@ export const idle = {
   /** slow pacing position 0..1..0 */
   pace: (t, period = 6, seed = 0) => 0.5 - 0.5 * Math.cos((t + seed) / period * Math.PI * 2),
 };
+
+/** a foley bed (ambience) from t0 to t1: name = siege · harbour · storm · surf · room · crowd */
+export function foley(t0, t1, name, gain = 1) { SFX.push({ t: +t0.toFixed(3), type: 'bed', name, dur: +(t1 - t0).toFixed(3), gain }); }

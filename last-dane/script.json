@@ -133,7 +133,7 @@
   },
   {
    "beat": 1,
-   "text": "called Kongs-bak-keh after his hometown,",
+   "text": "called Kongs-backa after his hometown,",
    "caps": "called *Kongsbakke | after his *hometown,"
   },
   {
@@ -259,7 +259,7 @@
   },
   {
    "beat": 2,
-   "text": "Kongs-bak-keh, now the fort's quartermaster,",
+   "text": "Kongs-backa, now the fort's quartermaster,",
    "caps": "Kongsbakke, now the fort's *quartermaster,"
   },
   {
@@ -341,7 +341,7 @@
   },
   {
    "beat": 4,
-   "text": "Kongs-bak-keh could not pay,",
+   "text": "Kongs-backa could not pay,",
    "caps": "Kongsbakke could not *pay,"
   },
   {
@@ -351,7 +351,7 @@
   },
   {
    "beat": 4,
-   "text": "But Kongs-bak-keh had planned for this.",
+   "text": "But Kongs-backa had planned for this.",
    "caps": "But *Kongsbakke | had *planned for this."
   },
   {
@@ -387,7 +387,7 @@
   },
   {
    "beat": 5,
-   "text": "So Kongs-bak-keh had a wall built around the whole town,",
+   "text": "So Kongs-backa had a wall built around the whole town,",
    "caps": "So Kongsbakke had a *wall | built *around | the whole *town,"
   },
   {
@@ -478,7 +478,7 @@
   },
   {
    "beat": 6,
-   "text": "By sixteen sixty-eight, even Kongs-bak-keh thought",
+   "text": "By sixteen sixty-eight, even Kongs-backa thought",
    "caps": "By 1668, even Kongsbakke *thought"
   },
   {
@@ -494,7 +494,7 @@
   },
   {
    "beat": 7,
-   "text": "a Dutchman named Hairt van Haa-gen,",
+   "text": "a Dutchman named Hairt van Haagen,",
    "caps": "a *Dutchman named | *Geert van Hagen,"
   },
   {
@@ -524,7 +524,7 @@
   },
   {
    "beat": 7,
-   "text": "One of its officers, Hen-rik Eg-gers,",
+   "text": "One of its officers, Hen-rik Eggers,",
    "caps": "One of its *officers, | Henrik *Eggers,"
   },
   {
@@ -534,12 +534,12 @@
   },
   {
    "beat": 7,
-   "text": "if Kongs-bak-keh was dead and the town was lost.",
+   "text": "if Kongs-backa was dead and the town was lost.",
    "caps": "if Kongsbakke was *dead | and the town was *lost."
   },
   {
    "beat": 7,
-   "text": "Instead, he found Kongs-bak-keh alive,",
+   "text": "Instead, he found Kongs-backa alive,",
    "caps": "*Instead, he found | Kongsbakke *alive,"
   },
   {
@@ -570,7 +570,7 @@
   },
   {
    "beat": 8,
-   "text": "Eg-gers and his officers looked down",
+   "text": "Eggers and his officers looked down",
    "caps": "Eggers and his *officers | looked *down"
   },
   {
@@ -585,7 +585,7 @@
   },
   {
    "beat": 8,
-   "text": "Kongs-bak-keh complained bitterly:",
+   "text": "Kongs-backa complained bitterly:",
    "caps": "Kongsbakke complained *bitterly:"
   },
   {
@@ -605,12 +605,12 @@
   },
   {
    "beat": 8,
-   "text": "The king backed him, and called Eg-gers home.",
+   "text": "The king backed him, and called Eggers home.",
    "caps": "The king *backed him, | and called Eggers *home."
   },
   {
    "beat": 8,
-   "text": "Kongs-bak-keh stayed in command at Dans-borg",
+   "text": "Kongs-backa stayed in command at Dans-borg",
    "caps": "*Kongsbakke stayed | in *command at Dansborg"
   },
   {
@@ -666,7 +666,7 @@
   },
   {
    "beat": 9,
-   "text": "Kongs-bak-keh did not survive because Denmark helped him.",
+   "text": "Kongs-backa did not survive because Denmark helped him.",
    "caps": "*Kongsbakke did not survive | because *Denmark helped him."
   },
   {
@@ -694,5 +694,35 @@
    "text": "for another hundred and seventy years.",
    "caps": "for another *170 years."
   }
+ ],
+ "score": [
+  [
+   0,
+   "tension"
+  ],
+  [
+   17.39,
+   "nordic"
+  ],
+  [
+   122.85,
+   "tension"
+  ],
+  [
+   182.61,
+   "nordic"
+  ],
+  [
+   216.43,
+   "hope"
+  ],
+  [
+   250.63,
+   "tension"
+  ],
+  [
+   281.71,
+   "warm"
+  ]
  ]
 }

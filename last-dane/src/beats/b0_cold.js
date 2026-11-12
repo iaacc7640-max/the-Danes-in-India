@@ -10,16 +10,20 @@ export function siegeNight(t, o = {}) {
   K.sea(640, t, 2, ['#55677A', '#4B5B6C']);
   K.fortDansborg(960, 760, 0.95, t, { night: 1, wall: 1, towers: 4, houses: 1, lamps: 0.7, wind: 1.1 });
   cut(P_rr(-300, 760, W + 600, 600, 0), '#4A3E33', { shadow: 0.5, edge: 4 });
-  K.lantern(o.lx ?? 690, o.ly ?? 600, 0.55, t, 1.2);                     // the one lantern on the rampart
+  K.lantern(o.lx ?? 800, o.ly ?? 600, 0.55, t, 1.2);                     // the one lantern on the rampart
   K.siegeRing(960, 900, 1150, 340, t, o.ring ?? 1, 0.85);
+  // the siege camp in the dark foreground: tents + campfires
+  cut(P_rr(-300, 960, W + 600, 300, 0), '#3A3129', { shadow: 0.6, edge: 4 });
+  for (let i = 0; i < 9; i++) { const x = 60 + i * 230 + (i % 2) * 60, y = 1010 + (i % 3) * 22, k = clamp(((o.ring ?? 1) * 1.4) * 9 - i); if (k <= 0) continue;
+    ctx.save(); ctx.translate(x, y); ctx.scale(K.idle ? 1 : 1, eob(clamp(k))); cut(P_poly([[-90, 0], [0, -110], [90, 0]]), i % 2 ? P.forest : '#5E6B4E', { shadow: 0.6, edge: 4 }); ctx.fillStyle = '#2A2119'; ctx.beginPath(); ctx.moveTo(-14, 0); ctx.lineTo(0, -60); ctx.lineTo(14, 0); ctx.fill(); ctx.restore(); if (i % 2 === 0) K.torch(x + 120, y + 10, 0.6, t, i); }
 }
-export const LANTERN = [690, 600];
+export const LANTERN = [800, 600];
 
 export function b0(add, ev, snap) {
   // S00 · wide night siege → SNAP onto the lantern (2.5 s); the ring rises on "surrounded"
   { const sur = Wd('surrounded', 1), town = Wd('town', 1);
     add({ id: 'B0-S00', at: 0, beat: 0, cam: K.cam.push(960, 640, 0.08), snaps: [snap(2.5, LANTERN[0], LANTERN[1], 2.3)], note: 'wide night siege → snap to the lantern',
-      draw(lt, d, t) { siegeNight(t, { ring: 0.45 + 0.3 * eo(clamp((lt - 1.2) / 0.6)) + 0.35 * eo(clamp((lt - sur) / 0.5)) }); } });
+      draw(lt, d, t) { siegeNight(t, { ring: 0.3 + 0.35 * eo(clamp((lt - 1.2) / 0.5)) + 0.4 * eo(clamp((lt - sur) / 0.5)) }); } });
     ev(0.02, 'appear', { note: 'torches flicker on', sfx: false }); ev(1.25, 'appear', { note: 'banners ripple in' }); ev(sur, 'flag', { note: 'siege ring on "surrounded"' }); ev(town + 0.1, 'appear', { note: 'torch flare' });
   }
   // S01 · close on the lantern; the month block tears 1 → 9 on "nine"
@@ -40,7 +44,7 @@ export function b0(add, ev, snap) {
   // S03 · three empty icons stamp in on "orders" · "money" · "ships"
   { const st = L(4) - 0.08, a = Wd('orders', 4), b = Wd('money', 4), c = Wd('ships', 4);
     add({ id: 'B0-S03', at: st, beat: 0, cam: K.cam.drift(80, 960, 500, 1.04), note: 'no orders · no money · no ships',
-      draw(lt, d, t) { K.parchment(13); ctx.save(); ctx.globalAlpha = 0.6; ctx.fillStyle = K.NAVY; ctx.fillRect(-300, -300, W + 600, H + 600); ctx.restore(); K.lantern(960, 900, 1.0, t, 1.0);
+      draw(lt, d, t) { K.parchment(12); K.ledger(900, 560, 1.25, t, 0.8, { blot: 1, hand: false }); ctx.save(); ctx.globalAlpha = 0.72; ctx.fillStyle = K.NAVY; ctx.fillRect(-300, -300, W + 600, H + 600); ctx.restore(); K.lantern(1650, 360, 1.2, t, 1.2);
         [['orders', a, 520], ['coins', b, 960], ['ship', c, 1400]].forEach(([k, w, x]) => K.emptyIcon(k, x, 470, 1.15, clamp((t - w) / 0.22))); } });
     ev(a, 'stamp'); ev(b, 'stamp'); ev(c, 'stamp');
   }
@@ -48,7 +52,7 @@ export function b0(add, ev, snap) {
   { const st = L(5) - 0.08, fg = Wd('forgotten', 5);
     add({ id: 'B0-S04', at: st, beat: 0, cam: K.cam.push(760, 480, 0.06), note: 'Copenhagen: door shuts, cobweb on India',
       draw(lt, d, t) { K.parchment(14); cut(P_rr(-300, 820, W + 600, 400, 0), '#7A6650', { shadow: 0.5, edge: 0 });
-        ctx.save(); ctx.translate(380, 160); ctx.rotate(-0.02); cut(P_rr(0, 0, 760, 560, 6), '#E9DCBC', { shadow: 1, edge: 0 }); ctx.save(); ctx.beginPath(); ctx.rect(20, 20, 720, 520); ctx.clip(); ctx.translate(20, 20); ctx.scale(720 / W, 520 / H); K.realMap('sea', { view: [66, 4, 96, 30] }); ctx.restore(); circle(380, 20, 12, P.crimson); ctx.restore();
+        ctx.save(); ctx.translate(380, 160); ctx.rotate(-0.02); cut(P_rr(0, 0, 760, 560, 6), '#E9DCBC', { shadow: 1, edge: 0 }); ctx.save(); ctx.beginPath(); ctx.rect(20, 20, 720, 520); ctx.clip(); ctx.translate(20, 20); ctx.scale(720 / W, 520 / H); K.realMap('world', { view: [58, -2, 102, 36], grid: 10 }); ctx.restore(); circle(380, 20, 12, P.crimson); ctx.restore();
         K.cobweb(380, 160, 520, clamp((t - fg - 0.25) / 0.9)); K.cobweb(1140, 160, 380, clamp((t - fg - 0.45) / 0.9), -1);
         K.door(1560, 820, 1.1, clamp((t - fg + 0.25) / 0.25)); K.coldWash(1); } });
     ev(fg, 'door', { note: 'door slams on "forgotten"' }); ev(fg + 0.5, 'appear', { note: 'cobweb spreads', sfx: false });

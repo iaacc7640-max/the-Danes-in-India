@@ -19,7 +19,7 @@ function nordicHarbour(t, o = {}) {
 /** world map with the voyage: p 0..1 draws Copenhagen → round Africa → Tranquebar */
 const VOYAGE = ['Copenhagen', [4, 51], [-12, 35], [-22, 10], [-8, -20], [10, -36], 'Cape of Good Hope', [35, -36], [55, -20], [62, 0], [74, 6], 'Tranquebar'];
 function worldVoyage(t, p, o = {}) {
-  const pr = K.realMap('world', { view: o.view || [-30, -42, 100, 64] });
+  const pr = K.realMap('world', { view: o.view || [-62, -44, 158, 78] });
   const [cx, cy] = K.place(pr, 'Copenhagen'), [tx, ty] = K.place(pr, 'Tranquebar');
   if (p > 0) { const h = K.geoRoute(pr, VOYAGE, p, { wobble: 4 }); if (p < 1 && o.ship !== false) { ctx.save(); ctx.translate(h[0], h[1]); K.ship(0, 0, 0.12, Math.sin(t * 2) * 0.08); ctx.restore(); } }
   circle(cx, cy, 10, P.ink); K.label('COPENHAGEN', cx + 16, cy - 26, 26, P.ink, 'left');
@@ -33,8 +33,8 @@ export function b1(add, ev, snap) {
   { const st = at(7), nm = Wd('name', 7), cl = Wd('called', 8), home = Wd('hometown', 8);
     add({ id: 'B1-S10', at: st, beat: 1, year: 1639, enter: 'whip', cam: K.cam.drift(110, 760, 560, 1.04), snaps: [snap(cl + 0.3, 760, 520, 1.18)], note: 'Kungsbacka quay, young Kongsbakke',
       draw(lt, d, t) { nordicHarbour(t); K.person({ x: 760, y: 900, h: 470, who: 'kongsYoung', t, look: '' });
-        K.slip('ESKILD ANDERSEN', 760, 300, t > cl + 0.3 ? 0 : pop(t, nm + 0.45), -0.03, 46); K.slip('KONGSBAKKE', 760, 300, pop(t, cl + 0.3), 0.02, 52);
-        if (t > home) { ctx.save(); ctx.globalAlpha = clamp((t - home) / 0.3); ctx.strokeStyle = P.crimson; ctx.lineWidth = 7; ctx.setLineDash([16, 12]); ctx.beginPath(); ctx.moveTo(900, 330); ctx.quadraticCurveTo(1080, 300, 1150, 380); ctx.stroke(); ctx.setLineDash([]); ctx.restore(); circle(1160, 395, 12, P.crimson); } },
+        K.slip('ESKILD ANDERSEN', 1060, 520, t > cl + 0.3 ? 0 : pop(t, nm + 0.45), -0.03, 46); K.slip('KONGSBAKKE', 1040, 520, pop(t, cl + 0.3), 0.02, 52);
+        if (t > home) { ctx.save(); ctx.globalAlpha = clamp((t - home) / 0.3); ctx.strokeStyle = P.crimson; ctx.lineWidth = 7; ctx.setLineDash([16, 12]); ctx.beginPath(); ctx.moveTo(1180, 470); ctx.quadraticCurveTo(1300, 380, 1330, 300); ctx.stroke(); ctx.setLineDash([]); ctx.restore(); circle(1330, 290, 12, P.crimson); } },
       overlay(lt, d, t) { const k = t - 18.0; if (k >= 0 && k <= 1.2) { ctx.save(); ctx.globalAlpha = clamp(Math.min(k / 0.15, (1.2 - k) / 0.2)); K.slip('THE LAST DANE', 1490, 200, eob(clamp(k / 0.25)), 0.02, 44); ctx.restore(); } } });
     ev(18.0, 'card', { note: 'THE LAST DANE title slip' }); ev(nm + 0.45, 'pop', { note: 'name slip' }); ev(home, 'route', { note: 'hometown arrow', dur: 0.6 });
   }
@@ -44,8 +44,8 @@ export function b1(add, ev, snap) {
       draw(lt, d, t) { const pr = K.realMap('north', { view: [5.5, 54.0, 19.5, 59.6] }); const [hx, hy] = K.place(pr, 'Halland'), [kx, ky] = K.place(pr, 'Kungsbacka'), [cx, cy] = K.place(pr, 'Copenhagen');
         const land = () => { ctx.beginPath(); for (const ring of K.GEO.data.north.land) ring.forEach(([lo, la], i) => { const [px, py] = pr(lo, la); i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }); };
         K.inkBleed(land, P.crimson, clamp((t - dk + 0.2) / 0.8), hx, hy, 150, 4); K.inkBleed(land, P.royal, clamp((t - sw) / 0.7), hx, hy, 170, 9);
-        circle(kx, ky, 11, P.ink); K.slip('KUNGSBACKA', kx + 170, ky - 30, 1, -0.02, 34); circle(cx, cy, 11, P.ink); K.label('COPENHAGEN', cx + 22, cy + 34, 28, P.ink, 'left');
-        K.slip(t > sw ? 'NOW SWEDEN' : 'THEN DENMARK', hx - 300, hy + 40, t > sw ? pop(t, sw) : pop(t, dk), 0.03, 38); } });
+        circle(kx, ky, 11, P.ink); K.slip('KUNGSBACKA', kx + 170, ky - 30, 1, -0.02, 34); circle(cx, cy, 11, P.ink); K.slip('COPENHAGEN', cx + 190, cy - 20, 1, 0.02, 30);
+        K.slip(t > sw ? 'NOW SWEDEN' : 'THEN DENMARK', hx + 330, hy + 30, t > sw ? pop(t, sw) : pop(t, dk), 0.03, 38); } });
     ev(dk, 'ink', { note: 'Halland crimson' }); ev(sw, 'ink', { note: 'Halland → Swedish blue' });
   }
   // S12 · the crowd: hats and gold; he is plain; COMMONER; they turn away on "nobody"
@@ -59,8 +59,8 @@ export function b1(add, ev, snap) {
   }
   // S13 · close: he plants his feet; STUBBORN; his brows set on "matter"
   { const st = at(11), sb = Wd('stubborn', 11), mt = Wd('matter', 11);
-    add({ id: 'B1-S13', at: st, beat: 1, year: 1639, cam: K.cam.push(900, 420, 0.09), note: 'stubborn close-up',
-      draw(lt, d, t) { nordicHarbour(t); ctx.save(); ctx.globalAlpha = 0.3; ctx.fillStyle = P.parch; ctx.fillRect(-300, -300, W + 600, H + 600); ctx.restore(); K.person({ x: 900, y: 1500, h: 1300, who: 'kongsYoung', t, mood: t > mt ? 'stern' : '', arm: 0 }); K.stamp('STUBBORN', 1430, 330, pop(t, sb, 0.18), 0.1, 74); } });
+    add({ id: 'B1-S13', at: st, beat: 1, year: 1639, cam: K.cam.push(1000, 480, 0.09), note: 'stubborn close-up',
+      draw(lt, d, t) { nordicHarbour(t); ctx.save(); ctx.globalAlpha = 0.3; ctx.fillStyle = P.parch; ctx.fillRect(-300, -300, W + 600, H + 600); ctx.restore(); K.person({ x: 1000, y: 1420, h: 1000, who: 'kongsYoung', t, mood: t > mt ? 'stern' : '', arm: 0 }); K.stamp('STUBBORN', 470, 420, pop(t, sb, 0.18), 0.1, 74); } });
     ev(sb, 'stamp', { note: 'STUBBORN' }); ev(mt, 'appear', { note: 'brows set', sfx: false });
   }
   // S14 · Copenhagen company office: he makes his slow mark; the company seal thuds on "Company"

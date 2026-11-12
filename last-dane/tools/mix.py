@@ -93,9 +93,76 @@ def heartbeat(**_):
     one = lambda d, f: np.sin(2 * np.pi * f * tt(d)) * env(int(d * SR), 0.004, 7)
     x = np.concatenate([one(0.16, 58), np.zeros(int(0.09 * SR)), one(0.2, 52) * 0.75]); return lp(x, 300) * 1.0
 
-FX = dict(inhale=inhale, heartbeat=heartbeat, whoosh=whoosh, slide=slide, pop=pop, plop=plop, gulp=gulp, boing=boing, bubbles=bubbles, sizzle=sizzle,
+# ---------- last-dane motion + foley sounds ----------
+def whip(d=0.32, **_):
+    n = noise(d); k = np.linspace(0, 1, len(n)); x = bp(n, 300, 3800) * np.sin(np.pi * k) ** 2.2
+    x = x / (np.abs(x).max() + 1e-9); return x * 0.6 + sweep(500, 140, d) * np.sin(np.pi * k) ** 2 * 0.08
+def tap(**_): d = 0.12; t = tt(d); return lp(noise(d), 900) * env(len(t), 0.001, 14) * 0.6 + np.sin(2 * np.pi * 120 * t) * env(len(t), 0.001, 12) * 0.4
+def snap(**_):
+    d = 0.3; t = tt(d); body = np.sin(2 * np.pi * (90 + 120 * np.exp(-t * 40)) * t) * env(len(t), 0.001, 9)
+    air = bp(noise(d), 600, 3000) * env(len(t), 0.001, 25); return body * 0.8 + air * 0.35
+def swell(d=1.6, **_):
+    t = tt(d); k = t / d; x = sum(np.sin(2 * np.pi * f * t) for f in (110, 165, 220)) * k ** 2 * np.minimum(1, (1 - k) * 8)
+    return lp(x + lp(noise(d), 800) * k ** 2 * 0.6, 1500) * 0.4
+def brush(d=0.6, **_): n = bp(noise(d), 500, 2600); k = np.linspace(0, 1, len(n)); return n * np.sin(np.pi * k) ** 1.4 * (0.7 + 0.3 * np.sin(k * 40)) * 0.5
+def quill(d=1.0, **_):
+    n = bp(noise(d), 1200, 4200); k = np.linspace(0, 1, len(n)); strokes = (np.sin(2 * np.pi * 7 * k * d) > 0.2).astype(float)
+    return n * lp(strokes, 60) * np.minimum(1, np.minimum(k, 1 - k) * 12) * 0.35
+def seal(**_):
+    d = 0.45; t = tt(d); x = np.sin(2 * np.pi * (75 + 50 * np.exp(-t * 30)) * t) * env(len(t), 0.002, 8)
+    return x * 0.9 + lp(noise(d), 500) * env(len(t), 0.001, 18) * 0.5
+def flap(**_):
+    d = 0.5; x = np.zeros(int(d * SR))
+    for k in range(5):
+        st = int(k * 0.08 * SR); b = lp(noise(0.07), 1500) * env(int(0.07 * SR), 0.002, 6); x[st:st + len(b)] += b * (1 - k * 0.15)
+    return x * 0.7
+def door(**_):
+    d = 0.8; t = tt(d); creak = np.sin(2 * np.pi * np.cumsum(180 + 40 * np.sin(t * 30)) / SR) * np.exp(-((t - 0.12) / 0.1) ** 2) * 0.25
+    out = lp(creak, 1200); i = int(0.25 * SR); s2 = slam(); n = min(len(s2), len(t) - i); out[i:i + n] += s2[:n]; return out
+def coin(**_):
+    x = np.zeros(int(0.8 * SR))
+    for k in range(4):
+        st = int(k * 0.11 * SR); f = 1900 + k * 230; b = (np.sin(2 * np.pi * f * tt(0.3)) + 0.4 * np.sin(2 * np.pi * f * 2.7 * tt(0.3))) * env(int(0.3 * SR), 0.001, 9); x[st:st + len(b)] += b * 0.3
+    return lp(x, 4800)
+def bell(d=2.2, **_):
+    t = tt(d); x = sum(a * np.sin(2 * np.pi * f * t) * np.exp(-t * dec) for f, a, dec in ((392, 1, 1.6), (784, 0.5, 2.4), (1047, 0.3, 3), (523, 0.25, 2)))
+    return x * env(len(t), 0.002, 1) * 0.45
+def sting(**_):
+    d = 2.4; t = tt(d); low = np.sin(2 * np.pi * 55 * t) * np.exp(-t * 1.3); hit = lp(noise(d), 300) * np.exp(-t * 6)
+    cl = sum(np.sin(2 * np.pi * f * t) for f in (220, 261.6, 311.1)) * np.exp(-t * 1.6) * 0.25
+    return (low * 0.8 + hit * 0.6 + cl) * 0.7
+
+def bed(name='siege', d=4.0, **_):
+    """foley beds: siege (far drums, crickets, wind) · harbour (gulls, bell) · storm (wind, timber) · surf · room (clock) · crowd"""
+    n = int(d * SR); t = np.arange(n) / SR; x = np.zeros(n); fade = np.minimum(1, np.minimum(t / 0.2, (d - t) / 0.2))
+    def put(sig, st, g=1.0):
+        i = int(st * SR); m = min(len(sig), n - i)
+        if m > 0: x[i:i + m] += sig[:m] * g
+    if name == 'siege':
+        for j, st in enumerate(np.arange(0.15, d, 0.62)): put(lp(np.sin(2 * np.pi * 62 * tt(0.4)) * env(int(0.4 * SR), 0.004, 6), 400), st, 0.5 if j % 2 else 0.9)
+        x += bp(noise(d), 3800, 4800) * (0.5 + 0.5 * np.sign(np.sin(2 * np.pi * 18 * t))) * (0.5 + 0.5 * np.sin(2 * np.pi * 0.7 * t)) * 0.08
+        x += lp(noise(d), 500) * (0.5 + 0.5 * np.sin(t * 0.9)) * 0.3
+    elif name == 'harbour':
+        x += lp(noise(d), 600) * 0.25
+        for st in np.arange(0.4, d, 1.7): put(sweep(1300, 900, 0.35) * env(int(0.35 * SR), 0.03, 3), st, 0.15)
+        put(bell(), 0.8, 0.5)
+    elif name == 'storm':
+        x += lp(noise(d), 700) * (0.7 + 0.3 * np.sin(t * 1.7)) * 0.7
+        for st in np.arange(0.3, d, 0.9): put(np.sin(2 * np.pi * np.cumsum(140 + 30 * np.sin(tt(0.4) * 20)) / SR) * env(int(0.4 * SR), 0.05, 3), st, 0.15)
+    elif name == 'surf':
+        x += lp(noise(d), 900) * (0.4 + 0.6 * np.sin(np.pi * ((t / 3.2) % 1)) ** 2) * 0.6
+    elif name == 'room':
+        x += lp(noise(d), 300) * 0.15
+        for st in np.arange(0.0, d, 1.0): put(tock(), st, 0.3)
+    elif name == 'crowd':
+        for v in range(6): x += bp(noise(d), 250 + v * 90, 500 + v * 120) * (0.5 + 0.5 * np.sin(t * (1.3 + v * 0.4) + v)) * 0.25
+    return x / (np.abs(x).max() + 1e-9) * fade
+
+FX = dict(whip=whip, tap=tap, snap=snap, swell=swell, brush=brush, quill=quill, seal=seal, flap=flap, door=door, coin=coin, bell=bell, sting=sting, bed=bed,
+          inhale=inhale, heartbeat=heartbeat, whoosh=whoosh, slide=slide, pop=pop, plop=plop, gulp=gulp, boing=boing, bubbles=bubbles, sizzle=sizzle,
           sparkle=sparkle, thud=thud, slam=slam, tock=tock, zip=zip_, alarm=alarm)
-LEVEL = dict(inhale=-15, heartbeat=-8, whoosh=-17, slide=-19, pop=-14, plop=-15, gulp=-11, boing=-15, bubbles=-21, sizzle=-18, sparkle=-17,
+LEVEL = dict(whip=-15, tap=-22, snap=-15, swell=-21, brush=-19, quill=-21, seal=-12, flap=-18, door=-13, coin=-20, bell=-18, sting=-12, bed=-25,
+             inhale=-15, heartbeat=-8, whoosh=-17, slide=-19, pop=-14, plop=-15, gulp=-11, boing=-15, bubbles=-21, sizzle=-18, sparkle=-17,
              thud=-11, slam=-9, tock=-18, zip=-14, alarm=-17)
 
 
@@ -133,6 +200,62 @@ def music_tension():
     x = lp(x, 2200); fade = np.ones(N); fo = int(1.5 * SR); fade[-fo:] = np.linspace(1, 0, fo); fi = int(0.8 * SR); fade[:fi] *= np.linspace(0, 1, fi)
     return x / (np.abs(x).max() + 1e-9) * fade
 
+def music_score(sections):
+    """script.json "score": [[t0, "tension"|"nordic"|"hope"|"warm"], ...]; full level from frame 1, 1.2 s crossfades between sections"""
+    t = np.arange(N) / SR; out = np.zeros(N)
+    def nordic():
+        x = np.zeros(N); drone = sum(np.sin(2 * np.pi * f * t + np.sin(t * 0.2 + f) * 0.3) * g for f, g in ((73.4, 0.5), (110, 0.35), (146.8, 0.15)))
+        x += lp(drone, 900) * 0.6
+        notes = [293.7, 349.2, 440.0, 392.0, 349.2, 293.7, 261.6, 293.7, 440.0, 523.3, 440.0, 392.0]
+        beat = 60 / 72
+        for k in range(int(DUR / beat)):
+            if k % 8 in (3, 7) and k % 16 != 3: continue
+            f = notes[k % len(notes)]; i = int(k * beat * SR); L = int(1.6 * SR)
+            if i + L >= N: break
+            # plucked string (Karplus-Strong-ish via decaying harmonics)
+            pt = tt(1.6); pl = sum(np.sin(2 * np.pi * f * h * pt) * (0.6 ** h) * np.exp(-pt * (2.5 + h * 1.5)) for h in range(1, 6)) * env(L, 0.002, 1)
+            x[i:i + L] += pl * 0.35
+        return lp(x, 3000)
+    def tension(): return music_tension_raw()
+    def hope():
+        x = np.zeros(N); beat = 60 / 84; ch = [[293.7, 370.0, 440.0], [329.6, 415.3, 493.9], [370.0, 440.0, 554.4], [392.0, 493.9, 587.3]]
+        for b in range(int(DUR / (beat * 4)) + 1):
+            c = ch[b % 4]; st = int(b * beat * 4 * SR); n = int(beat * 4 * SR)
+            if st >= N: break
+            tb = tt(beat * 4); e = np.minimum(1, tb / 0.3) * np.minimum(1, (beat * 4 - tb) / 0.3); seg_ = sum(np.sin(2 * np.pi * f / 2 * tb) for f in c) * e * 0.18
+            x[st:st + n] += seg_[:max(0, min(n, N - st))]
+            for k in range(8):
+                f = c[k % 3] * (2 if k >= 4 else 1); i = st + int(k * beat / 2 * SR); L = int(0.6 * SR)
+                if i + L < N: x[i:i + L] += np.sin(2 * np.pi * f * tt(0.6)) * env(L, 0.003, 6) * 0.14
+        return lp(x, 3200)
+    def warm():
+        x = np.zeros(N); beat = 60 / 66; ch = [[146.8, 220.0, 293.7, 370.0], [123.5, 185.0, 246.9, 293.7], [98.0, 196.0, 246.9, 293.7], [110.0, 220.0, 277.2, 329.6]]
+        for b in range(int(DUR / (beat * 4)) + 1):
+            c = ch[b % 4]; st = int(b * beat * 4 * SR); n = int(beat * 4 * SR)
+            if st >= N: break
+            tb = tt(beat * 4); e = np.minimum(1, tb / 0.6) * np.minimum(1, (beat * 4 - tb) / 0.6); x[st:st + n] += (sum(np.sin(2 * np.pi * f * tb) for f in c) * e * 0.12)[:max(0, min(n, N - st))]
+        return lp(x, 2500)
+    gens = {'tension': tension, 'nordic': nordic, 'hope': hope, 'warm': warm}; cache = {}
+    secs = sorted(sections) + [[DUR + 10, None]]
+    for (a, kind), (b, _) in zip(secs[:-1], secs[1:]):
+        if kind not in cache: cache[kind] = gens[kind]()
+        m = cache[kind]; m = m / (np.abs(m).max() + 1e-9)
+        w = np.clip((t - a) / 1.2 + 1, 0, 1) if a > 0 else np.ones(N)           # fade in over the 1.2 s before a (none at 0)
+        w = w * np.clip((b - t) / 1.2, 0, 1) if b < DUR else w * np.clip((DUR - t) / 2.0, 0, 1)
+        out += m * w
+    return out / (np.abs(out).max() + 1e-9)
+
+def music_tension_raw():
+    t = np.arange(N) / SR; x = np.zeros(N)
+    for f, g in [(55, 0.5), (82.4, 0.3), (110, 0.2), (130.8, 0.12)]: x += np.sin(2 * np.pi * f * t + np.sin(t * 0.3) * 0.5) * g
+    x *= 0.55 + 0.45 * np.sin(2 * np.pi * t / 8) ** 2
+    beat = 60 / 84; ping = lambda f: (np.sin(2 * np.pi * f * tt(1.2)) + 0.3 * np.sin(4 * np.pi * f * tt(1.2))) * env(int(1.2 * SR), 0.01, 5)
+    seq = [220.0, 261.6, 196.0, 174.6]
+    for k in range(int(DUR / (beat * 2))):
+        i = int(k * beat * 2 * SR); pg = ping(seq[(k // 2) % 4]) * 0.35
+        if i + len(pg) < N: x[i:i + len(pg)] += pg
+    return lp(x, 2200)
+
 def load_audio(f):
     out = subprocess.run(['ffmpeg', '-v', 'error', '-i', str(f), '-f', 'f32le', '-ac', '2', '-ar', str(SR), '-'], capture_output=True, check=True).stdout
     a = np.frombuffer(out, dtype=np.float32).reshape(-1, 2).astype(np.float64); return a
@@ -149,7 +272,7 @@ if vf.exists():
 # music
 mus = script.get('music', 'bed')
 if mus and mus != 'none':
-    m = music_bed() if mus == 'bed' else music_tension() if mus == 'tension' else None
+    m = music_score(script['score']) if mus == 'score' else music_bed() if mus == 'bed' else music_tension() if mus == 'tension' else None
     if m is None:
         a = load_audio(P / mus)[:N]; m = np.zeros(N); m[:len(a)] = a.mean(1); m /= np.abs(m).max() + 1e-9
     m = np.stack([m, m], 1) * db(-24 if voice is not None else -20)
@@ -161,7 +284,7 @@ if mus and mus != 'none':
 for c in cj['cues']:
     fn = FX.get(c['type'])
     if not fn: print('unknown cue type, skipped:', c['type']); continue
-    x = fn(**({'d': c['dur']} if c.get('dur') else {}))
+    x = fn(**({'d': c['dur']} if c.get('dur') else {}), **({'name': c['name']} if c.get('name') else {}))
     x = lp(x, 5000) * db(LEVEL[c['type']]) * c.get('gain', 1.0) / (np.abs(x).max() + 1e-9) * 0.9
     i = int(c['t'] * SR); n = min(len(x), N - i)
     if n > 0 and i >= 0: pan = c.get('pan', 0.0); mix[i:i + n, 0] += x[:n] * (1 - max(0, pan)); mix[i:i + n, 1] += x[:n] * (1 + min(0, pan))

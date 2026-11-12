@@ -1,0 +1,71 @@
+   0.02  appear  torches flicker on
+   1.25  appear  banners ripple in
+   2.50  snap    B0-S00
+   4.26  flag    siege ring on "surrounded"
+   5.00  appear  torch flare
+   5.49  cut     B0-S01
+   6.32  page    months tear 1→9
+   7.00  cut     B0-S02
+   8.15  write   a word crossed out
+   8.25  appear  ink blot
+   9.50  snap    B0-S02
+   9.99  cut     B0-S03
+  10.50  stamp   
+  11.34  stamp   
+  12.14  stamp   
+  13.02  cut     B0-S04
+  13.82  door    door slams on "forgotten"
+  14.32  appear  cobweb spreads
+  14.64  cut     B0-S05
+  15.64  appear  flag ripples
+  16.42  flag    gust on "flag"
+  16.77  sting   cold-open sting
+  17.39  whip    B1-S10
+  17.44  card    beat 1 card
+  18.00  card    THE LAST DANE title slip
+  18.09  pop     name slip
+  20.43  snap    B1-S10
+  21.68  route   hometown arrow
+  22.69  whip    B1-S11
+  23.36  ink     Halland crimson
+  24.92  ink     Halland → Swedish blue
+  25.73  cut     B1-S12
+  26.32  stamp   COMMONER
+  27.28  appear  they turn away
+  28.70  cut     B1-S13
+  29.16  stamp   STUBBORN
+  30.54  appear  brows set
+  31.41  whip    B1-S14
+  33.46  write   his slow mark
+  35.12  seal    company seal
+  36.02  whip    B1-S15
+  37.32  ink     Tranquebar star
+  38.61  whip    B1-S16
+  38.76  pop     DANSBORG
+  39.84  pop     TRANQUEBAR
+  41.15  whip    B1-S17
+  41.90  ink     the rented village
+  42.58  ink     the Nayak's land
+  43.30  pop     TANJORE
+  45.15  cut     B1-S18
+  46.44  coin    coins slide
+  46.82  stamp   YEARLY
+  47.69  whip    B1-S19
+  47.79  route   route draws
+  49.00  appear  storm clouds
+  49.59  whip    B1-S20
+  50.38  pop     ship name
+  50.49  appear  big wave
+  52.18  whip    B1-S21
+  52.28  route   route completes
+  53.60  stat    1639-1643
+  55.20  whip    B1-S22
+  55.40  bell    ship bell
+  56.22  appear  crew walks ashore
+  57.40  cut     B1-S23
+  58.06  appear  ship sails off
+  59.96  stat    26 years
+  59.96  snap    B1-S23
+  61.16  sting   beat 1 sting
+GAP 264.06 s between 61.16 and 325.23 (limit 4 s)
+events 0-61.9 s: 69 · biggest gap in cold open 1.76 s (limit 2.5) · after 0:18 2.34 s (limit 4)

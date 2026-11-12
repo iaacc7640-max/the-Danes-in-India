@@ -27,7 +27,7 @@ function renderShot(i, t, c) {
   setCtx(c); c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1; c.letterSpacing = '0px'; c.filter = 'none';
   c.fillStyle = '#000'; c.fillRect(0, 0, W, H);
   const m = K.camAt(sh.cam, lt, d, sh.snaps || [], sh.at);
-  c.save(); c.translate(m.tx, 0); c.translate(m.x, m.y); c.scale(m.s, m.s); c.translate(-m.x, -m.y);
+  c.save(); c.translate(m.tx, m.ty || 0); c.translate(m.x, m.y); c.scale(m.s, m.s); c.translate(-m.x, -m.y);
   sh.draw(lt, d, t);
   c.restore(); c.globalAlpha = 1; c.letterSpacing = '0px';
 }
