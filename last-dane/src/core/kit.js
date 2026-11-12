@@ -1,7 +1,8 @@
-// Paper Atlas: the COMPONENT ZOO. History told with paper cut-outs on aged parchment: every shape is cut paper
+// Paper Atlas 16:9 (last-dane): the COMPONENT ZOO. History told with paper cut-outs on aged parchment: every shape is cut paper
 // (light edge + soft drop shadow), maps are stylized, routes are crimson, dates ride on gold ribbons.
 import { ctx, W, H, TAU, lerp, clamp, rnd, rr, circle, ell, line } from './lib.js';
 
+export * from './motion.js';
 export const P = {
   parch: '#E9DCBC', parchDark: '#D6C39B', ink: '#3E2C1E', sepia: '#8A6A48', crimson: '#A8322D', gold: '#C8952F',
   sea: '#9DB4B0', seaDark: '#86A09B', land: '#DCC9A0', forest: '#7E8B5A', skin: '#E3B98F', edge: '#F7EFDC',
@@ -27,7 +28,7 @@ export function parchment(seed = 0) {
   ctx.fillStyle = P.parch; ctx.fillRect(-300, -300, W + 600, H + 600);
   for (let i = 0; i < 14; i++) { const g = ctx.createRadialGradient(0, 0, 0, 0, 0, 1); ctx.save(); ctx.translate(rnd(i + seed) * W, rnd(i + 30 + seed) * H); ctx.scale(160 + rnd(i + 5) * 260, 120 + rnd(i + 9) * 200); g.addColorStop(0, 'rgba(160,120,70,0.13)'); g.addColorStop(1, 'rgba(160,120,70,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, 1, 0, TAU); ctx.fill(); ctx.restore(); }
   ctx.strokeStyle = 'rgba(120,90,50,0.08)'; ctx.lineWidth = 2; for (let i = 0; i < 160; i++) { const x = rnd(i * 2 + seed) * W, y = rnd(i * 3 + seed) * H; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 30 + rnd(i) * 60, y + (rnd(i + 1) - 0.5) * 10); ctx.stroke(); }
-  const g = ctx.createRadialGradient(540, 960, 500, 540, 960, 1250); g.addColorStop(0, 'rgba(90,60,30,0)'); g.addColorStop(1, 'rgba(90,60,30,0.38)'); ctx.fillStyle = g; ctx.fillRect(-300, -300, W + 600, H + 600);
+  const g = ctx.createRadialGradient(W / 2, H / 2, 560, W / 2, H / 2, 1150); g.addColorStop(0, 'rgba(90,60,30,0)'); g.addColorStop(1, 'rgba(90,60,30,0.38)'); ctx.fillStyle = g; ctx.fillRect(-300, -300, W + 600, H + 600);
 }
 
 // ═════════════════════════ MAPS ═════════════════════════
@@ -59,7 +60,7 @@ export function dashedRoute(pts, p = 1) {
 }
 export function compass(x, y, s) { ctx.save(); ctx.translate(x, y); ctx.scale(s, s); circle(0, 0, 110, 'rgba(233,220,188,0.9)'); ctx.strokeStyle = P.ink; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(0, 0, 110, 0, TAU); ctx.stroke(); for (let i = 0; i < 4; i++) { ctx.save(); ctx.rotate(i * Math.PI / 2); ctx.beginPath(); ctx.moveTo(0, -100); ctx.lineTo(18, 0); ctx.lineTo(-18, 0); ctx.closePath(); ctx.fillStyle = i ? P.ink : P.crimson; ctx.fill(); ctx.restore(); } ctx.font = `700 40px ${SERIF}`; ctx.fillStyle = P.ink; ctx.textAlign = 'center'; ctx.fillText('N', 0, -120); ctx.restore(); }
 /** ink map label (small caps serif) */
-export function label(text, x, y, size = 36, color = P.ink) { ctx.font = `700 ${size}px ${SERIF}`; ctx.letterSpacing = '4px'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = color; ctx.fillText(text, x, y); ctx.letterSpacing = '0px'; }
+export function label(text, x, y, size = 36, color = P.ink, align = 'center') { ctx.font = `700 ${size}px ${SERIF}`; ctx.letterSpacing = '4px'; ctx.textAlign = align; ctx.textBaseline = 'middle'; ctx.fillStyle = color; ctx.fillText(text, x, y); ctx.letterSpacing = '0px'; }
 
 // ═════════════════════════ PEOPLE: paper cut-outs ═════════════════════════
 /** a paper figure standing on (x, y). o = { h (default 640), dir, role: 'king'|'queen'|'sailor'|'scholar'|'guard'|'merchant'|'worker', walk, arm (deg raise of front arm) } */
@@ -140,13 +141,133 @@ export function timeline(years, x, y, w, p = 0, active = -1) {
 export function slip(text, x, y, sc = 1, rot = -0.03, size = 54) { if (sc <= 0) return; ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(sc, sc); ctx.font = `700 ${size}px ${SERIF}`; const w = ctx.measureText(text).width + 70; cut(P_rr(-w / 2, -size * 0.8, w, size * 1.6, 4), P.edge); ctx.fillStyle = P.ink; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillText(text, 0, 4); circle(0, -size * 0.8 + 6, 10, P.crimson); ctx.restore(); }
 
 // ═════════════════════════ CAPTION LOOK ═════════════════════════
-export const CAPLOOK = { font: `700 88px ${SERIF}`, y: 1640, maxW: 940, fg: P.ink, hi: P.crimson };
+export const CAPLOOK = { font: `700 68px ${SERIF}`, y: 935, maxW: 1500, fg: P.ink, hi: P.crimson, half: 54 };
 /** caption on a torn paper strip */
 export function captionStrip(words, x, y, sc = 1, look = CAPLOOK) {
   ctx.save(); ctx.translate(x, y); ctx.scale(sc, sc); ctx.font = look.font; ctx.textBaseline = 'middle'; ctx.textAlign = 'left';
-  const sp = 24, ws = words.map((w) => ctx.measureText(w.txt).width), tw = ws.reduce((a, b) => a + b, 0) + sp * (words.length - 1), hw = tw / 2 + 50;
+  const sp = 20, hh = look.half || 70, ws = words.map((w) => ctx.measureText(w.txt).width), tw = ws.reduce((a, b) => a + b, 0) + sp * (words.length - 1), hw = tw / 2 + 50;
   const fit = Math.min(1, (look.maxW || 960) / (tw + 100)); ctx.scale(fit, fit);
-  cut(() => { ctx.beginPath(); ctx.moveTo(-hw, -70); for (let x = -hw; x <= hw; x += 24) ctx.lineTo(x, -70 + (rnd(x) - 0.5) * 12); for (let x = hw; x >= -hw; x -= 24) ctx.lineTo(x, 70 + (rnd(x + 7) - 0.5) * 12); ctx.closePath(); }, '#F3E9D2', { shadow: 0.8, edge: 0 });
+  cut(() => { ctx.beginPath(); ctx.moveTo(-hw, -hh); for (let x = -hw; x <= hw; x += 24) ctx.lineTo(x, -hh + (rnd(x) - 0.5) * 12); for (let x = hw; x >= -hw; x -= 24) ctx.lineTo(x, hh + (rnd(x + 7) - 0.5) * 12); ctx.closePath(); }, '#F3E9D2', { shadow: 0.8, edge: 0 });
   let cx = -tw / 2; words.forEach((w, i) => { ctx.fillStyle = w.hi ? look.hi : look.fg; ctx.fillText(w.txt, cx, 6); cx += ws[i] + sp; });
+  ctx.restore();
+}
+
+// ═════════════════════════ 16:9 HISTORY MODULES (last-dane) ═════════════════════════
+const W2 = W / 2;
+const eobk = (t) => { const c1 = 1.70158, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); };
+
+// ── real maps: data/geo.json (Natural Earth coastlines, public domain), loaded once by main.js ──
+export const GEO = { data: null };
+export function setGeo(g) { GEO.data = g; }
+/** projection for a [lon0, lat0, lon1, lat1] view fitted (cover) into the rect [x, y, w, h]; equirectangular with cos(lat) */
+export function projFor(view, rect = [0, 0, W, H]) {
+  const [l0, b0, l1, b1] = view, [x, y, w, h] = rect, k = Math.cos(((b0 + b1) / 2) * Math.PI / 180);
+  const vw = (l1 - l0) * k, vh = b1 - b0, s = Math.max(w / vw, h / vh), cx = (l0 + l1) / 2, cy = (b0 + b1) / 2;
+  const f = (lon, lat) => [x + w / 2 + (lon - cx) * k * s, y + h / 2 - (lat - cy) * s];
+  f.scale = s * k; f.k = k; return f;
+}
+/** a real map page: sea, graticule, cut-paper land. region = 'world' | 'south' | 'sea'; returns the projection.
+ *  o = { view: [lon0, lat0, lon1, lat1], land: colour, sea: colour, grid: degrees, seed } */
+export function realMap(region, o = {}) {
+  const g = GEO.data[region], pr = projFor(o.view || g.box);
+  parchment(o.seed || 3);
+  ctx.save(); ctx.globalAlpha = o.seaAlpha ?? 0.85; ctx.fillStyle = o.sea || P.sea; ctx.fillRect(-300, -300, W + 600, H + 600); ctx.restore();
+  const gs = o.grid || (region === 'world' ? 20 : region === 'sea' ? 10 : 1);
+  ctx.strokeStyle = 'rgba(62,44,30,0.16)'; ctx.lineWidth = 2;
+  for (let lon = Math.floor(g.box[0] / gs) * gs; lon <= g.box[2]; lon += gs) { const a = pr(lon, g.box[1]), b = pr(lon, g.box[3]); ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); }
+  for (let lat = Math.floor(g.box[1] / gs) * gs; lat <= g.box[3]; lat += gs) { const a = pr(g.box[0], lat), b = pr(g.box[2], lat); ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke(); }
+  for (const ring of g.land) cut(() => { ctx.beginPath(); ring.forEach(([lo, la], i) => { const [px, py] = pr(lo, la); i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }); ctx.closePath(); }, o.land || P.land, { shadow: 0.7, edge: 4 });
+  return pr;
+}
+/** the projected position of a named place in geo.json */
+export const place = (pr, name) => pr(...GEO.data.places[name]);
+/** a route through [lon, lat] points (or named places), drawn on by p 0..1 with a slight hand wobble; returns the head */
+export function geoRoute(pr, pts, p = 1, o = {}) {
+  const xy = pts.map((q) => (typeof q === 'string' ? place(pr, q) : pr(q[0], q[1])));
+  const dense = []; for (let i = 1; i < xy.length; i++) for (let k = 0; k < 24; k++) { const u = k / 24, [a, b] = [xy[i - 1], xy[i]], wob = Math.sin((i * 24 + k) * 0.7) * (o.wobble ?? 5); const nx = -(b[1] - a[1]), ny = b[0] - a[0], nl = Math.hypot(nx, ny) || 1; dense.push([lerp(a[0], b[0], u) + nx / nl * wob, lerp(a[1], b[1], u) + ny / nl * wob]); }
+  dense.push(xy[xy.length - 1]);
+  return dashedRoute(dense, p);
+}
+
+// ── ink bleed: a colour soaks into a shape from a point, in blotchy waves (p 0..1) ──
+export function inkBleed(path, color, p, ox, oy, maxR = 600, seed = 1) {
+  if (p <= 0) return; ctx.save(); path(); ctx.clip();
+  const R = maxR * eio2(clamp(p));
+  ctx.fillStyle = color; ctx.beginPath();
+  for (let i = 0; i < 14; i++) { const a = i / 14 * TAU + rnd(seed + i) * 0.4, rr2 = R * (0.55 + 0.45 * rnd(seed + i * 3)); ctx.moveTo(ox + Math.cos(a) * rr2 * 0.6 + R * 0.3, oy + Math.sin(a) * rr2 * 0.6); ctx.arc(ox + Math.cos(a) * rr2 * 0.6, oy + Math.sin(a) * rr2 * 0.6, R * (0.35 + 0.25 * rnd(seed + i * 7)), 0, TAU); }
+  ctx.arc(ox, oy, R * 0.75, 0, TAU); ctx.globalAlpha = 0.82; ctx.fill('nonzero');
+  ctx.restore();
+}
+const eio2 = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+
+// ── era bar (top, y 70): evenly spaced year ticks, a crimson marker at the current year ──
+export function eraBar(ticks, year, a = 1, y = 70) {
+  if (a <= 0) return; const x0 = 300, x1 = 1620, n = ticks.length, xs = (i) => x0 + (x1 - x0) * i / (n - 1);
+  let mx = xs(0); for (let i = 1; i < n; i++) if (year <= ticks[i]) { mx = lerp(xs(i - 1), xs(i), clamp((year - ticks[i - 1]) / (ticks[i] - ticks[i - 1]))); break; } else mx = xs(n - 1);
+  ctx.save(); ctx.globalAlpha = a;
+  cut(() => { ctx.beginPath(); ctx.moveTo(x0 - 70, y - 30); for (let x = x0 - 70; x <= x1 + 70; x += 30) ctx.lineTo(x, y - 30 + (rnd(x) - 0.5) * 6); for (let x = x1 + 70; x >= x0 - 70; x -= 30) ctx.lineTo(x, y + 34 + (rnd(x + 3) - 0.5) * 6); ctx.closePath(); }, 'rgba(243,233,210,0.94)', { shadow: 0.5, edge: 0 });
+  line([[x0, y - 6], [x1, y - 6]], P.ink, 4);
+  ticks.forEach((yr, i) => { const on = Math.abs(xs(i) - mx) < 30; circle(xs(i), y - 6, on ? 9 : 6, on ? P.crimson : P.ink); ctx.font = `700 24px ${SERIF}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = on ? P.crimson : P.ink; ctx.fillText(String(yr), xs(i), y + 18); });
+  cut(P_poly([[mx, y - 10], [mx - 13, y - 34], [mx + 13, y - 34]]), P.crimson, { shadow: 0.4, edge: 3 });
+  ctx.restore();
+}
+
+// ── beat card: gold year ribbon + a 2-4 word hook slip, 1.2 s over the moving scene (lt = time since the beat began) ──
+export function beatCard(year, hook, lt, dur = 1.2, x = 350, y = 200) {
+  if (lt < 0 || lt > dur) return;
+  const pin = eobk(clamp(lt / 0.22)), out = clamp((lt - (dur - 0.2)) / 0.2), dy = -out * 60, a = 1 - out;
+  ctx.save(); ctx.globalAlpha = a; ctx.translate(0, dy);
+  ribbon(year, x, y, pin * 0.52, 110);
+  slip(hook, x, y + 98, eobk(clamp((lt - 0.08) / 0.22)), -0.02, 46);
+  ctx.restore();
+}
+
+// ── stat card: a pinned paper card with a big figure and a small line (p = pop 0..1) ──
+export function statCard(big, small, x, y, p = 1, o = {}) {
+  if (p <= 0) return; ctx.save(); ctx.translate(x, y); ctx.rotate(o.rot ?? -0.025); ctx.scale(p, p);
+  ctx.font = `700 ${o.size || 84}px ${SERIF}`; const bw = ctx.measureText(big).width; ctx.font = `700 30px ${SERIF}`; const sw = ctx.measureText(small).width;
+  const w = Math.max(bw, sw) + 90, h = (o.size || 84) + 110;
+  cut(P_rr(-w / 2, -h / 2, w, h, 6), '#F3E9D2', { shadow: 1, edge: 0 });
+  ctx.strokeStyle = 'rgba(62,44,30,0.35)'; ctx.lineWidth = 3; ctx.strokeRect(-w / 2 + 14, -h / 2 + 14, w - 28, h - 28);
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.font = `700 ${o.size || 84}px ${SERIF}`; ctx.fillStyle = o.date ? '#9A6E1C' : P.ink; ctx.fillText(big, 0, -18);
+  ctx.font = `700 30px ${SERIF}`; ctx.letterSpacing = '2px'; ctx.fillStyle = P.sepia; ctx.fillText(small, 0, h / 2 - 44); ctx.letterSpacing = '0px';
+  circle(0, -h / 2 + 4, 11, P.crimson);
+  ctx.restore();
+}
+
+// ── the Danish flag (Dannebrog): crimson with a bold white Nordic cross, always fluttering ──
+/** pole foot at (x, y); cloth w wide; t = film time; wind 0..1.5 */
+export function danishFlag(x, y, w, t, o = {}) {
+  const h = w * 28 / 37, pole = o.pole ?? w * 1.6, top = y - pole, wind = o.wind ?? 1, N = 24, s = o.s || 1;
+  ctx.save();
+  cut(P_rr(x - 7, top - 8, 14, pole + 8, 4), P.ink, { shadow: 0.6, edge: 3 });
+  circle(x, top - 10, 12, P.gold);
+  const at = (u, v) => { const ph = u * 5.2 - t * 6.5 * wind, amp = h * 0.10 * wind * u; return [x + 7 + u * w * (1 - 0.04 * wind * Math.abs(Math.sin(ph))), top + v * h + Math.sin(ph) * amp + u * h * 0.06]; };
+  const edgeU = (v, n = 32) => Array.from({ length: n + 1 }, (_, i) => at(i / n, v));
+  const band = (u0, u1, v0, v1) => { const n = Math.max(2, Math.round((u1 - u0) * 32)); const top = Array.from({ length: n + 1 }, (_, i) => at(u0 + (u1 - u0) * i / n, v0)), bot = Array.from({ length: n + 1 }, (_, i) => at(u0 + (u1 - u0) * i / n, v1)).reverse(); ctx.beginPath(); [...top, ...bot].forEach((q, i) => (i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]))); ctx.closePath(); };
+  ctx.shadowColor = 'rgba(40,25,10,0.35)'; ctx.shadowBlur = 12; ctx.shadowOffsetY = 8;
+  band(0, 1, 0, 1); ctx.fillStyle = P.crimson; ctx.fill(); ctx.shadowColor = 'transparent';
+  const vx0 = 12 / 37, vx1 = 16 / 37, hy0 = 12 / 28, hy1 = 16 / 28, WH = '#FBF6EA';
+  ctx.fillStyle = WH; band(0, 1, hy0, hy1); ctx.fill(); band(vx0, vx1, 0, 1); ctx.fill();
+  // folds: a horizontal gradient of light and shade following the wave
+  const x0 = x + 7, gr = ctx.createLinearGradient(x0, 0, x0 + w, 0);
+  for (let i = 0; i <= 16; i++) { const u = i / 16, sh = Math.cos(u * 5.2 - t * 6.5 * wind) * Math.min(1, u * 4); gr.addColorStop(u, sh > 0 ? `rgba(255,240,220,${0.14 * sh})` : `rgba(30,10,5,${-0.2 * sh})`); }
+  band(0, 1, 0, 1); ctx.fillStyle = gr; ctx.fill();
+  void edgeU;
+  ctx.restore();
+}
+
+// ── a lantern with a warm flickering glow ──
+export function lantern(x, y, s, t, glow = 1) {
+  const f = 0.88 + 0.07 * Math.sin(t * 13) + 0.05 * Math.sin(t * 31);
+  if (glow > 0) { const g = ctx.createRadialGradient(x, y, 0, x, y, 260 * s * f); g.addColorStop(0, `rgba(255,205,110,${0.55 * glow * f})`); g.addColorStop(1, 'rgba(255,205,110,0)'); ctx.fillStyle = g; ctx.fillRect(x - 300 * s, y - 300 * s, 600 * s, 600 * s); }
+  ctx.save(); ctx.translate(x, y); ctx.scale(s, s);
+  ctx.strokeStyle = P.ink; ctx.lineWidth = 5; ctx.beginPath(); ctx.arc(0, -78, 18, Math.PI, TAU); ctx.stroke();
+  cut(P_rr(-34, -62, 68, 14, 4), P.ink, { shadow: 0.5, edge: 3 });
+  cut(P_rr(-28, -48, 56, 84, 8), `rgba(250,${200 + 20 * f | 0},110,1)`, { shadow: 0.5, edge: 3 });
+  ell(0, 0, 10 * f, 18 * f, '#FFF2C4');
+  for (const dx of [-28, 28]) { ctx.fillStyle = P.ink; ctx.fillRect(dx - 3, -48, 6, 84); }
+  cut(P_rr(-36, 36, 72, 14, 4), P.ink, { shadow: 0.5, edge: 3 });
   ctx.restore();
 }

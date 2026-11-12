@@ -1,6 +1,8 @@
-// Inside Out engine: canvas, palette, math and drawing primitives.
+// Paper Atlas 16:9 engine (last-dane): canvas, math and drawing primitives.
 // Every drawing function in the kit uses the shared `ctx` exported here (set once by main.js).
-export const W = 1080, H = 1920, FPS = 30;
+export const W = 1920, H = 1080, FPS = 30;
+// title-safe box and the caption zone (16:9 layout)
+export const SAFE = { x0: 96, x1: 1824, y0: 54, y1: 1026 }, CAPZONE = { y0: 870, y1: 1000 };
 export let ctx = null;
 export function setCtx(c) { ctx = c; }
 

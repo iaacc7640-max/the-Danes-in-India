@@ -1,8 +1,8 @@
-// Captions: 1-3 words, Inter Black, white with a thick ink outline, ONE yellow word, centre lower third.
+// Captions (16:9): 2-5 words, Caladea on a torn paper strip centred at y 935, ONE crimson word.
 // Each script line has "caps": "WHAT IF *YOU | SWALLOW *GUM?"  ("|" = next caption, "*" = the yellow word).
 // Without "caps", the line is chunked automatically (2-3 words, the longest word goes yellow).
 // A chunk appears 0.05 s before its first word and stays until the next chunk (or shortly after the line ends).
-import { ctx, C, clamp, lerp, seg, eob } from './lib.js';
+import { ctx, W, clamp, lerp, seg, eob } from './lib.js';
 import { T, lineWords } from './timing.js';
 import { captionStrip, CAPLOOK } from './kit.js';
 
@@ -43,5 +43,5 @@ export const captionList = () => caps;
 export function drawCaption(t) {
   const c = caps.find((c) => t >= c.s && t < c.e); if (!c) return;
   const lt = t - c.s, sc = lt < 0.18 ? lerp(0.7, 1, eob(seg(lt, 0, 0.18))) : 1;
-  captionStrip(c.words, 540, CAPLOOK.y, sc);
+  captionStrip(c.words, W / 2, CAPLOOK.y, sc);
 }

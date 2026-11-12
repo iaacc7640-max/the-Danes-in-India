@@ -4,7 +4,7 @@ import { setCtx } from './lib.js';
 
 export const BW = 1920, BH = 1080;
 let B = null;                                   // the board's 2D context
-const off = document.createElement('canvas'); off.width = 1080; off.height = 1920;
+const off = document.createElement("canvas"); off.width = 1920; off.height = 1080;
 const offCtx = off.getContext('2d');
 
 export function startBoard(canvas, { title, author = 'MADE BY YOUR NAME · 2026', bg = '#17181C', line = '#4A4D55', head = '#F2F2F2', accent = '#FFD43B', font = 'Inter' }) {
@@ -27,11 +27,11 @@ export function panel(x, y, w, h, n, label) {
   B.strokeStyle = board.line; B.beginPath(); B.moveTo(x + 18, y + 58); B.lineTo(x + w - 18, y + 58); B.stroke();
   return { x: x + 18, y: y + 72, w: w - 36, h: h - 90 };
 }
-/** render a 1080x1920 frame with drawFn (which uses the kit) and place it at x, y, w (height = w * 16/9) */
+/** render a 1920x1080 frame with drawFn (which uses the kit) and place it at x, y, w (height = w * 9/16) */
 export function frame(x, y, w, drawFn) {
-  offCtx.setTransform(1, 0, 0, 1, 0, 0); offCtx.globalAlpha = 1; offCtx.clearRect(0, 0, 1080, 1920);
+  offCtx.setTransform(1, 0, 0, 1, 0, 0); offCtx.globalAlpha = 1; offCtx.clearRect(0, 0, 1920, 1080);
   setCtx(offCtx); offCtx.save(); drawFn(); offCtx.restore(); setCtx(B);
-  const h = w * 16 / 9; B.drawImage(off, x, y, w, h);
+  const h = w * 9 / 16; B.drawImage(off, x, y, w, h);
   B.strokeStyle = board.line; B.lineWidth = 2; B.strokeRect(x, y, w, h);
   return h;
 }

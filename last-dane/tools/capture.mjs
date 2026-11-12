@@ -1,7 +1,9 @@
 // Frame-exact capture through headless Chrome. No npm packages (Node 22+). Run from the project folder.
 //   node tools/capture.mjs check                         boot, list shots + captions, report errors
 //   node tools/capture.mjs cues                          write data/cues.json (the sound cues, for tools/mix.py)
-//   node tools/capture.mjs sheet review/all.jpg [step=0.5] [cols=9]   contact sheet, a frame every `step` s, time-stamped
+//   node tools/capture.mjs sheet review/all.jpg [step=0.5] [cols=6] [from] [to]   contact sheet (ranged), time-stamped
+//   node tools/capture.mjs events [maxgap=4] [coldEnd=18] [coldGap=2.5]   visual events; FAILS on any gap over the limit
+//   node tools/capture.mjs beats [max=60]                write data/beats.json; FAILS if any gap between beat starts > max
 //   node tools/capture.mjs frames review/full "1.2,8.4"  full-size JPEGs of those times
 //   node tools/capture.mjs video renders/out.mp4 [start end] [--draft]   the film (30 fps) with data/mix.wav if it exists
 //   node tools/capture.mjs preview                       serve the project and print a URL to watch it in a browser
@@ -41,7 +43,7 @@ async function openPage(port) {
   if (!CHROME) throw new Error('Chrome not found: install Google Chrome or set CHROME=/path/to/chrome');
   const prof = fs.mkdtempSync(path.join(os.tmpdir(), 'fs-chrome-'));
   const chrome = spawn(CHROME, ['--headless=new', '--remote-debugging-port=0', `--user-data-dir=${prof}`, '--no-first-run', '--no-default-browser-check',
-    '--hide-scrollbars', '--window-size=1080,1920', '--ignore-gpu-blocklist', '--enable-unsafe-swiftshader', ...(process.env.SOFTWARE_GL ? ['--use-angle=swiftshader'] : []), ...(process.getuid?.() === 0 ? ['--no-sandbox'] : []), '--disable-background-timer-throttling', '--disable-renderer-backgrounding', 'about:blank'], { stdio: 'ignore' });
+    '--hide-scrollbars', '--window-size=1920,1080', '--ignore-gpu-blocklist', '--enable-unsafe-swiftshader', ...(process.env.SOFTWARE_GL ? ['--use-angle=swiftshader'] : []), ...(process.getuid?.() === 0 ? ['--no-sandbox'] : []), '--disable-background-timer-throttling', '--disable-renderer-backgrounding', 'about:blank'], { stdio: 'ignore' });
   let dbg;
   for (let i = 0; i < 200 && !dbg; i++) { try { dbg = fs.readFileSync(path.join(prof, 'DevToolsActivePort'), 'utf8').split('\n')[0].trim(); } catch { await sleep(100); } }
   if (!dbg) throw new Error('Chrome did not start');
@@ -70,7 +72,7 @@ async function openPage(port) {
   return { ev, logs, close };
 }
 const jpg = (d) => Buffer.from(d.slice(d.indexOf(',') + 1), 'base64');
-const FRAME = (t, q, label) => `(() => { const d = OP.frame(${t}, ${q}); ${label ? `const cv = document.getElementById('cv'), c = cv.getContext('2d'); c.setTransform(1,0,0,1,0,0); c.fillStyle = '#000'; c.fillRect(0, 0, 250, 86); c.fillStyle = '#fff'; c.font = '700 60px sans-serif'; c.textAlign = 'left'; c.textBaseline = 'alphabetic'; c.fillText('${(+t).toFixed(2)}', 14, 64); return cv.toDataURL('image/jpeg', ${q});` : 'return d;'} })()`;
+const FRAME = (t, q, label) => `(() => { const d = OP.frame(${t}, ${q}); ${label ? `const cv = document.getElementById('cv'), c = cv.getContext('2d'); c.setTransform(1,0,0,1,0,0); c.fillStyle = '#000'; c.fillRect(0, 0, 330, 110); c.fillStyle = '#fff'; c.font = '700 80px sans-serif'; c.textAlign = 'left'; c.textBaseline = 'alphabetic'; c.fillText('${(+t).toFixed(2)}', 14, 86); return cv.toDataURL('image/jpeg', ${q});` : 'return d;'} })()`;
 
 const srv = await serve(mode === 'preview' ? 8765 : 0), port = srv.address().port;
 if (mode === 'preview') { console.log(`open http://127.0.0.1:${port}/  (Ctrl+C to stop)`); }
@@ -95,11 +97,11 @@ else {
       for (const t of (rest[1] || '0').split(',').map(Number)) { fs.writeFileSync(path.join(dir, `t${t.toFixed(2)}.jpg`), jpg(await P.ev(FRAME(t, 0.92)))); }
       console.log(dir);
     } else if (mode === 'sheet') {
-      const out = path.resolve(ROOT, rest[0] || 'review/all.jpg'), step = +(rest[1] || 0.5), cols = +(rest[2] || 9);
+      const out = path.resolve(ROOT, rest[0] || 'review/all.jpg'), step = +(rest[1] || 0.5), cols = +(rest[2] || 6), from = +(rest[3] || 0), to = Math.min(dur, +(rest[4] || dur));
       const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'fs-sheet-')); let n = 0;
-      for (let t = step / 2; t < dur; t += step) fs.writeFileSync(path.join(tmp, `f${String(n++).padStart(4, '0')}.jpg`), jpg(await P.ev(FRAME(t, 0.8, true))));
+      for (let t = from + step / 2; t < to; t += step) fs.writeFileSync(path.join(tmp, `f${String(n++).padStart(4, '0')}.jpg`), jpg(await P.ev(FRAME(t, 0.8, true))));
       const rows = Math.ceil(n / cols); fs.mkdirSync(path.dirname(out), { recursive: true });
-      const r = spawnSync('ffmpeg', ['-v', 'error', '-y', '-framerate', '1', '-i', path.join(tmp, 'f%04d.jpg'), '-vf', `scale=216:384,tile=${cols}x${rows}:padding=4:color=black`, '-frames:v', '1', '-q:v', '3', out]);
+      const r = spawnSync('ffmpeg', ['-v', 'error', '-y', '-framerate', '1', '-i', path.join(tmp, 'f%04d.jpg'), '-vf', `scale=384:216,tile=${cols}x${rows}:padding=4:color=black`, '-frames:v', '1', '-q:v', '3', out]);
       fs.rmSync(tmp, { recursive: true, force: true });
       if (r.status) throw new Error('ffmpeg: ' + r.stderr); console.log(`${out} (${n} frames, every ${step} s)`);
     } else if (mode === 'video') {
@@ -117,6 +119,19 @@ else {
       }
       ff.stdin.end(); await new Promise((r) => ff.on('close', r));
       console.log(`\r${out} (${n} frames, ${hasMix ? 'with data/mix.wav' : 'SILENT: no data/mix.wav'}, ${((Date.now() - t0) / 1000).toFixed(0)} s)`);
-    } else console.log('modes: check · cues · sheet · frames · video · preview');
+    } else if (mode === 'events') {
+      const maxGap = +(rest[0] || 4), coldEnd = +(rest[1] || 18), coldGap = +(rest[2] || 2.5);
+      const evs = await P.ev('OP.events()'); const ts = [0, ...evs.map((e) => e.t), dur]; let bad = 0;
+      for (const e of evs) console.log(`${e.t.toFixed(2).padStart(7)}  ${e.kind.padEnd(7)} ${e.note}`);
+      for (let i = 1; i < ts.length; i++) { const g = ts[i] - ts[i - 1], lim = ts[i - 1] < coldEnd ? coldGap : maxGap;
+        if (g > lim + 1e-3) { bad++; console.log(`GAP ${g.toFixed(2)} s between ${ts[i - 1].toFixed(2)} and ${ts[i].toFixed(2)} (limit ${lim} s)`); } }
+      console.log(`${evs.length} events · ${bad ? `EVENTS FAILED: ${bad} gap(s)` : 'EVENTS OK'}`); if (bad) process.exitCode = 1;
+    } else if (mode === 'beats') {
+      const max = +(rest[0] || 60), bs = await P.ev('OP.beats()'); let bad = 0;
+      fs.writeFileSync(path.join(ROOT, 'data/beats.json'), JSON.stringify(bs, null, 1));
+      const mmss = (t) => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, '0')}`;
+      bs.forEach((b, i) => { const g = i ? b.start - bs[i - 1].start : 0; if (g > max) bad++; console.log(`beat ${String(b.n).padEnd(2)} ${mmss(b.start)} (${b.start.toFixed(2)} s)${i ? `  +${g.toFixed(1)} s` : ''}${g > max ? '  << OVER ' + max : ''}  ${b.card}`); });
+      console.log(`length ${mmss(dur)} (${dur.toFixed(1)} s) · ${bad ? 'BEATS FAILED' : 'BEATS OK'}`); if (bad) process.exitCode = 1;
+    } else console.log('modes: check · cues · sheet · frames · events · beats · video · preview');
   } finally { P.close(); srv.close(); }
 }
