@@ -48,17 +48,25 @@ function region(file, box, eps, minArea, feats) {
 const geo = {
   source: 'Natural Earth (public domain) via world-atlas 2.0.2',
   world: { box: [-90, -60, 170, 78], land: region('land-110m.json', [-90, -60, 170, 78], 0.25, 2) },
-  south: { box: [75.5, 7.5, 83.5, 14.2], land: region('land-10m.json', [75.5, 7.5, 83.5, 14.2], 0.01, 0.002) },
+  south: { box: [75.5, 7.5, 83.5, 14.2], land: region('land-10m.json', [75.5, 7.5, 83.5, 14.2], 0.002, 0.002) },
   sea: { box: [58, -12, 126, 32], land: region('land-50m.json', [58, -12, 126, 32], 0.06, 0.05) },
   north: { box: [2, 52.5, 24, 62], land: region('land-50m.json', [2, 52.5, 24, 62], 0.02, 0.002) },
   countries: (() => { const t = JSON.parse(fs.readFileSync(path.join(SRC, 'countries-50m.json'))), fc = topo.feature(t, t.objects.countries), o = {};
     for (const n of ['Denmark', 'Sweden', 'Norway', 'Germany']) o[n] = region(null, [2, 52.5, 24, 62], 0.02, 0.002, fc.features.filter((f) => f.properties.name === n)); return o; })(),
+  territory: [[79.858, 11.060], [79.840, 11.066], [79.822, 11.062], [79.806, 11.058], [79.795, 11.048], [79.799, 11.036], [79.792, 11.026],
+    [79.802, 11.012], [79.818, 11.006], [79.835, 11.004], [79.852, 11.002], [79.860, 11.020], [79.861, 11.040]],   // Tranquebar territory after 1669, traced approx. from the reference inset
   provinces: (() => { if (!ADM) return {}; const g = JSON.parse(fs.readFileSync(ADM)), o = {};
     for (const n of ['Skåne', 'Halland', 'Blekinge', 'Gotland']) o[n] = region(null, [2, 52.5, 24, 62], 0.01, 0.0005, g.features.filter((f) => f.properties.iso_a2 === 'SE' && f.properties.name === n)); return o; })(),
   places: {
     Tranquebar: [79.855, 11.029], Tanjore: [79.137, 10.787], Karaikal: [79.838, 10.925], Negapatam: [79.843, 10.766],
     Gingee: [79.418, 12.253], Madurai: [78.120, 9.925], Copenhagen: [12.568, 55.676], Kungsbacka: [12.077, 57.487],
-    'Cape of Good Hope': [18.474, -34.357], Bantam: [106.152, -6.034], Makassar: [119.423, -5.147], Bengal: [88.36, 22.57], Halland: [12.85, 56.75], Stockholm: [18.07, 59.33], Java: [110.0, -7.4],
+    'Cape of Good Hope': [18.474, -34.357], Bantam: [106.152, -6.034], Makassar: [119.423, -5.147], Bengal: [88.36, 22.57], Halland: [12.85, 56.75], Stockholm: [18.07, 59.33],
+    // Danish India places, positioned from the reference map "Map of Danish India" (Tinkaer1991, Wikimedia Commons) and
+    // standard town coordinates; Tillali and Perriare (Thillaiyadi, Poraiyar) are approximate
+    Serampore: [88.34, 22.75], Balasore: [86.93, 21.49], Pipli: [87.33, 21.85], Patna: [85.14, 25.59], Ganjam: [85.07, 19.38],
+    Bandar: [81.13, 16.17], Madras: [80.27, 13.08], Pundichery: [79.83, 11.93], Tegnapatnam: [79.77, 11.74], 'Porto Novo': [79.76, 11.49],
+    Cochin: [76.27, 9.97], Calicut: [75.78, 11.25], 'Oddeway Torre': [75.55, 11.62], Colachel: [77.25, 8.18], Trincomalee: [81.23, 8.57],
+    'Nicobar Islands': [93.5, 8.0], Tillali: [79.806, 11.046], Perriare: [79.826, 11.031], Java: [110.0, -7.4],
   },
 };
 fs.writeFileSync(path.resolve(path.dirname(new URL(import.meta.url).pathname), '../data/geo.json'), JSON.stringify(geo));

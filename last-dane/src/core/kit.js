@@ -116,7 +116,7 @@ export function ship(x, y, s = 1, rot = 0) {
   cut(P_poly([[-260, -60], [260, -60], [200, 50], [-200, 50]]), P.sepia);
   cut(P_rr(-10, -480, 20, 430, 6), P.ink, { shadow: 0.5, edge: 3 });
   cut(P_poly([[-200, -420], [180, -420], [150, -110], [-170, -110]]), P.edge);
-  cut(P_poly([[10, -500], [110, -470], [10, -440]]), P.crimson, { shadow: 0.3, edge: 3 });
+  companyMini(10, -520, 150);                                                        // the company's swallow-tailed flag
   ctx.restore();
 }
 
@@ -238,23 +238,59 @@ export function statCard(big, small, x, y, p = 1, o = {}) {
 
 // ── the Danish flag (Dannebrog): crimson with a bold white Nordic cross, always fluttering ──
 /** pole foot at (x, y); cloth w wide; t = film time; wind 0..1.5 */
+export const FLAG = { year: 1660 };              // main.js sets the film year each frame (picks the king's monogram)
+/** the king's crowned cipher for a year: Christian IV to 1648, Frederick III to 1670, Christian V after */
+export const cipherFor = (y) => (y < 1648 ? 'C4' : y < 1670 ? 'F3' : 'C5');
+/** a simple rampant paper lion (gold), facing right; size ~ 1 unit = 100 px */
+function lion(s, flip = 1) {
+  ctx.save(); ctx.scale(s * flip, s); const G = '#E9C46A', D = '#B8892E';
+  ctx.fillStyle = G; ctx.strokeStyle = D; ctx.lineWidth = 4; ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  ctx.beginPath(); ctx.ellipse(0, 10, 26, 46, -0.35, 0, TAU); ctx.fill(); ctx.stroke();                 // body
+  ctx.beginPath(); ctx.arc(14, -42, 24, 0, TAU); ctx.fill(); ctx.stroke();                              // mane
+  ctx.beginPath(); ctx.arc(26, -44, 12, 0, TAU); ctx.fill();                                            // muzzle
+  for (const [x1, y1, x2, y2] of [[10, -10, 40, -30], [14, 6, 44, 0], [-6, 46, 6, 82], [-20, 40, -30, 80]]) { ctx.lineWidth = 12; ctx.strokeStyle = G; ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke(); }
+  ctx.lineWidth = 6; ctx.strokeStyle = G; ctx.beginPath(); ctx.moveTo(-22, 30); ctx.bezierCurveTo(-60, 20, -40, -30, -62, -40); ctx.stroke();      // tail
+  ctx.beginPath(); ctx.moveTo(4, -64); ctx.lineTo(10, -78); ctx.lineTo(16, -66); ctx.lineTo(22, -80); ctx.lineTo(28, -64); ctx.closePath(); ctx.fillStyle = G; ctx.fill();   // crown
+  ctx.restore();
+}
+/** the crowned royal cipher between two lions, centred at 0,0, ~ 100 px tall per unit s */
+export function royalCipher(s, year = FLAG.year) {
+  ctx.save(); ctx.scale(s, s); const G = '#D9A93A';
+  ctx.save(); ctx.translate(-40, 8); lion(0.42, 1); ctx.restore(); ctx.save(); ctx.translate(40, 8); lion(0.42, -1); ctx.restore();
+  ctx.fillStyle = G; ctx.beginPath(); ctx.moveTo(-18, -24); ctx.lineTo(-22, -46); ctx.lineTo(-9, -35); ctx.lineTo(0, -52); ctx.lineTo(9, -35); ctx.lineTo(22, -46); ctx.lineTo(18, -24); ctx.closePath(); ctx.fill();
+  ctx.fillStyle = P.crimson; ctx.fillRect(-16, -31, 32, 6);
+  ctx.lineWidth = 3; ctx.strokeStyle = '#8A6420'; ctx.font = `700 34px ${SERIF}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.strokeText(cipherFor(year), 0, 6);
+  ctx.font = `700 34px ${SERIF}`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.fillStyle = G; ctx.fillText(cipherFor(year), 0, 6);
+  ctx.restore();
+}
+/** company flag, no pole: a static small version for ships (left edge at x, top at y, width w) */
+export function companyMini(x, y, w) {
+  const h = w * 0.5235, U = (u) => x + u * w, V = (v) => y + v * h;
+  ctx.beginPath(); ctx.moveTo(U(0), V(0)); ctx.lineTo(U(1), V(0)); ctx.lineTo(U(0.579), V(0.428)); ctx.lineTo(U(0.579), V(0.571)); ctx.lineTo(U(1), V(1)); ctx.lineTo(U(0), V(1)); ctx.closePath(); ctx.fillStyle = P.crimson; ctx.fill();
+  ctx.fillStyle = '#FBF6EA'; ctx.fillRect(U(0.224), V(0), 0.075 * w, h); ctx.fillRect(U(0), V(0.428), 0.579 * w, 0.143 * h); ctx.fillRect(U(0.112), V(0.214), 0.299 * w, 0.571 * h);
+  circle(U(0.2615), V(0.5), 0.06 * w, '#D9A93A');
+}
+/** The flag on a pole, always fluttering. Default: the Danish East India Company's swallow-tailed flag (crimson, white
+ *  cross, a white square with the crowned royal cipher between lions). o.national = the plain Dannebrog. */
 export function danishFlag(x, y, w, t, o = {}) {
-  const h = w * 28 / 37, pole = o.pole ?? w * 1.6, top = y - pole, wind = o.wind ?? 1, N = 24, s = o.s || 1;
+  const company = !o.national, h = company ? w * 0.5235 : w * 28 / 37, pole = o.pole ?? w * 1.6, top = y - pole, wind = o.wind ?? 1;
   ctx.save();
   cut(P_rr(x - 7, top - 8, 14, pole + 8, 4), P.ink, { shadow: 0.6, edge: 3 });
   circle(x, top - 10, 12, P.gold);
   const at = (u, v) => { const ph = u * 5.2 - t * 6.5 * wind, amp = h * 0.10 * wind * u; return [x + 7 + u * w * (1 - 0.04 * wind * Math.abs(Math.sin(ph))), top + v * h + Math.sin(ph) * amp + u * h * 0.06]; };
-  const edgeU = (v, n = 32) => Array.from({ length: n + 1 }, (_, i) => at(i / n, v));
-  const band = (u0, u1, v0, v1) => { const n = Math.max(2, Math.round((u1 - u0) * 32)); const top = Array.from({ length: n + 1 }, (_, i) => at(u0 + (u1 - u0) * i / n, v0)), bot = Array.from({ length: n + 1 }, (_, i) => at(u0 + (u1 - u0) * i / n, v1)).reverse(); ctx.beginPath(); [...top, ...bot].forEach((q, i) => (i ? ctx.lineTo(q[0], q[1]) : ctx.moveTo(q[0], q[1]))); ctx.closePath(); };
+  const poly = (pts) => { ctx.beginPath(); let first = true; for (let i = 0; i < pts.length; i++) { const [u0, v0] = pts[i], [u1, v1] = pts[(i + 1) % pts.length]; for (let k = 0; k < 12; k++) { const q = at(lerp(u0, u1, k / 12), lerp(v0, v1, k / 12)); first ? ctx.moveTo(q[0], q[1]) : ctx.lineTo(q[0], q[1]); first = false; } } ctx.closePath(); };
+  const rect = (u0, v0, u1, v1) => poly([[u0, v0], [u1, v0], [u1, v1], [u0, v1]]);
+  const outline = company ? [[0, 0], [1, 0], [0.579, 0.428], [0.579, 0.571], [1, 1], [0, 1]] : [[0, 0], [1, 0], [1, 1], [0, 1]];
   ctx.shadowColor = 'rgba(40,25,10,0.35)'; ctx.shadowBlur = 12; ctx.shadowOffsetY = 8;
-  band(0, 1, 0, 1); ctx.fillStyle = P.crimson; ctx.fill(); ctx.shadowColor = 'transparent';
-  const vx0 = 12 / 37, vx1 = 16 / 37, hy0 = 12 / 28, hy1 = 16 / 28, WH = '#FBF6EA';
-  ctx.fillStyle = WH; band(0, 1, hy0, hy1); ctx.fill(); band(vx0, vx1, 0, 1); ctx.fill();
+  poly(outline); ctx.fillStyle = P.crimson; ctx.fill(); ctx.shadowColor = 'transparent';
+  const WH = '#FBF6EA'; ctx.fillStyle = WH;
+  if (company) { rect(0.224, 0, 0.299, 1); ctx.fill(); rect(0, 0.428, 0.579, 0.571); ctx.fill(); rect(0.112, 0.214, 0.411, 0.785); ctx.fill();
+    if (w > 90) { const c = at(0.2615, 0.5), c2 = at(0.30, 0.5); ctx.save(); ctx.translate(c[0], c[1]); ctx.rotate(Math.atan2(c2[1] - c[1], c2[0] - c[0]) * 0.8); royalCipher(w * 0.0021); ctx.restore(); } }
+  else { rect(0, 12 / 28, 1, 16 / 28); ctx.fill(); rect(12 / 37, 0, 16 / 37, 1); ctx.fill(); }
   // folds: a horizontal gradient of light and shade following the wave
   const x0 = x + 7, gr = ctx.createLinearGradient(x0, 0, x0 + w, 0);
   for (let i = 0; i <= 16; i++) { const u = i / 16, sh = Math.cos(u * 5.2 - t * 6.5 * wind) * Math.min(1, u * 4); gr.addColorStop(u, sh > 0 ? `rgba(255,240,220,${0.14 * sh})` : `rgba(30,10,5,${-0.2 * sh})`); }
-  band(0, 1, 0, 1); ctx.fillStyle = gr; ctx.fill();
-  void edgeU;
+  poly(outline); ctx.fillStyle = gr; ctx.fill();
   ctx.restore();
 }
 

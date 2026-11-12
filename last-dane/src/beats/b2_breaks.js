@@ -33,7 +33,7 @@ export function b2(add, ev, snap) {
       draw(lt, d, t) { const pr = K.realMap('north', { view: [5.5, 54.0, 19.5, 59.6] }), G = K.GEO.data;
         const sh = (r) => () => { ctx.beginPath(); for (const ring of r) ring.forEach(([lo, la], i) => { const [px, py] = pr(lo, la); i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }); ctx.closePath(); };
         ctx.save(); ctx.globalAlpha = 0.8; sh(G.countries.Denmark)(); ctx.fillStyle = P.crimson; ctx.fill('evenodd'); ctx.globalAlpha = 0.9; sh(G.countries.Sweden)(); ctx.fillStyle = '#6F86A6'; ctx.fill('evenodd'); ctx.restore();
-        const [cx, cy] = K.place(pr, 'Copenhagen'); K.danishFlag(cx - 120, cy - 40, 120, t, { pole: 160 });
+        const [cx, cy] = K.place(pr, 'Copenhagen'); K.danishFlag(cx - 120, cy - 40, 120, t, { pole: 160, national: true });
         ctx.save(); ctx.translate(1500, 340); ctx.scale(0.7, 0.7); ctx.fillStyle = '#F3E9D2'; ctx.fillRect(-90, -60, 180, 120); ctx.fillStyle = '#C8952F'; ctx.fillRect(-90, -14, 180, 28); ctx.fillRect(-40, -60, 28, 120); ctx.globalAlpha = 0.85; ctx.fillStyle = '#3D5A80'; ctx.fillRect(-90, -60, 50, 46); ctx.fillRect(-12, -60, 102, 46); ctx.fillRect(-90, 14, 50, 46); ctx.fillRect(-12, 14, 102, 46); ctx.restore();
         if (t > sw) for (let i = 0; i < 6; i++) { const k = clamp((t - sw - i * 0.12) / 0.6); ctx.save(); ctx.globalAlpha = 0.85 * k; ctx.translate(900 + (i % 3) * 120, 520 - k * 60 - Math.floor(i / 3) * 70); ctx.scale(0.6 + k * 0.4, 0.6 + k * 0.4); cut(() => { ctx.beginPath(); for (const [dx, dy, r] of [[-40, 0, 38], [0, -24, 46], [40, 0, 36]]) { ctx.moveTo(dx + r, dy); ctx.arc(dx, dy, r, 0, TAU); } }, '#8F8578', { shadow: 0.3, edge: 3 }); ctx.restore(); }
         K.coldWash(0.6); } });

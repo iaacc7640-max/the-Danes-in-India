@@ -44,6 +44,7 @@ function yearAt(t) {
 function draw(t) {
   t = clamp(t, 0, T.dur - 1e-4);
   const i = shotIndex(t), sh = OP._shots[i], lt = t - sh.at;
+  { const y0 = yearAt(t); K.FLAG.year = y0 ?? (sh.beat === 9 ? 1680 : 1660); }      // the flag's royal cipher follows the film year
   renderShot(i, t, la);
   setCtx(main); main.setTransform(1, 0, 0, 1, 0, 0); main.globalAlpha = 1; main.fillStyle = '#000'; main.fillRect(0, 0, W, H);
   if (sh.enter === 'whip' && i > 0 && lt < WHIP) {

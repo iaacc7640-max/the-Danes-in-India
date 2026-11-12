@@ -8,7 +8,7 @@ const MUGHAL = '#2F5D3A';
 /** a ship whose flag is col (Danish = draw the Dannebrog) */
 function flagShip(x, y, s, rot, t, flag) {
   K.ship(x, y, s, rot); ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.scale(s, s);
-  if (flag === 'dk') { ctx.fillStyle = P.crimson; ctx.fillRect(10, -520, 120, 80); ctx.fillStyle = '#FBF6EA'; ctx.fillRect(48, -520, 14, 80); ctx.fillRect(10, -486, 120, 14); }
+  if (flag === 'dk') K.companyMini(10, -520, 150);
   else { ctx.fillStyle = flag; ctx.fillRect(10, -520, 120, 80); circle(70, -480, 18, P.gold); }
   ctx.restore();
 }

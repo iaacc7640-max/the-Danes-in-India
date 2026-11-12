@@ -44,7 +44,7 @@ export function b7(add, ev, snap) {
   // S115 · the frigate Færø sails in; FÆRØ slip
   { const st = at(83), fr = Wd('frigate', 83);
     add({ id: 'B7-S115', at: st, beat: 7, year: 1669, cam: K.cam.drift(-110, 960, 520, 1.05), note: 'the frigate Færø',
-      draw(lt, d, t) { K.daySky(95, 620); K.sea(640, t, 3); const k = eio(clamp(lt / d)); K.ship(lerp(1500, 1100, k), 760 + K.idle.bob(t, 2, 8), 1.05, Math.sin(t * 1.3) * 0.03); ctx.save(); ctx.translate(lerp(1500, 1100, k), 760 + K.idle.bob(t, 2, 8)); ctx.scale(1.05, 1.05); ctx.fillStyle = P.crimson; ctx.fillRect(10, -520, 120, 80); ctx.fillStyle = '#FBF6EA'; ctx.fillRect(48, -520, 14, 80); ctx.fillRect(10, -486, 120, 14); ctx.restore(); K.slip('FÆRØ', 560, 320, pop(t, fr + 0.5), -0.03, 64); } });
+      draw(lt, d, t) { K.daySky(95, 620); K.sea(640, t, 3); const k = eio(clamp(lt / d)); K.ship(lerp(1500, 1100, k), 760 + K.idle.bob(t, 2, 8), 1.05, Math.sin(t * 1.3) * 0.03); ctx.save(); ctx.translate(lerp(1500, 1100, k), 760 + K.idle.bob(t, 2, 8)); ctx.scale(1.05, 1.05); K.companyMini(10, -520, 150); ctx.restore(); K.slip('FÆRØ', 560, 320, pop(t, fr + 0.5), -0.03, 64); } });
     ev(fr + 0.5, 'pop', { note: 'FÆRØ' }); ev(st + 0.2, 'appear', { note: 'sails breathe', type: 'flap' });
   }
   // S116 · the anchor drops off Tranquebar; bell + cheer on "anchor"
@@ -88,13 +88,17 @@ export function b7(add, ev, snap) {
         K.seal(jx + 140, jy - 60, pop(t, pc) * 0.55, '♛'); K.seal(tx - 120, ty - 70, pop(t, pc + 0.2) * 0.55, 'D'); K.slip('PEACE', (tx + jx) / 2, Math.min(ty, jy) - 200, pop(t, pc + 0.35), -0.02, 56); circle(jx, jy, 10, P.ink); K.slip('TANJORE', jx - 60, jy + 80, 1, 0.02, 34); K.slip('TRANQUEBAR', tx + 190, ty - 90, 1, 0.02, 32); } });
     ev(pc, 'seal', { note: 'seals meet' }); ev(pc + 0.35, 'pop', { note: 'PEACE' });
   }
-  // S123 · new villages ink-bleed crimson round Tranquebar on "villages"; sting
-  { const st = at(91), vl = Wd('villages', 91);
-    add({ id: 'B7-S123', at: st, beat: 7, year: 1669, cam: K.cam.push(1160, 520, 0.08), note: 'new villages, sting',
-      draw(lt, d, t) { const pr = K.realMap('south', { view: [77.6, 9.9, 81.6, 12.1] }); const [tx, ty] = K.place(pr, 'Tranquebar'), [jx, jy] = K.place(pr, 'Tanjore'); const land = shapeOf(pr, K.GEO.data.south.land);
-        ctx.save(); ctx.globalAlpha = 0.55; K.greenTide(land, 1, jx, jy, 900, 3); ctx.restore(); K.inkBleed(() => { ctx.beginPath(); ctx.arc(tx, ty, 50, 0, TAU); }, P.crimson, 1, tx, ty, 60, 2);
-        [[-110, -40], [-160, 70], [-60, 120]].forEach(([dx, dy], i) => { const k = clamp((t - vl - i * 0.2) / 0.6); K.inkBleed(() => { ctx.beginPath(); ctx.arc(tx + dx, ty + dy, 34, 0, TAU); }, P.crimson, k, tx + dx, ty + dy, 40, 5 + i); if (k > 0.5) circle(tx + dx, ty + dy, 7, P.ink); });
-        K.slip('NEW VILLAGES', tx - 330, ty + 40, pop(t, vl + 0.3), 0.02, 40); K.slip('TRANQUEBAR', tx + 190, ty - 90, 1, 0.02, 32); circle(jx, jy, 10, P.ink); K.slip('TANJORE', jx - 60, jy + 80, 1, 0.02, 34); } });
-    ev(vl, 'ink', { note: 'villages bleed in' }); ev(Le(91) - 0.05, 'sting', { note: 'beat 7 sting' });
+  // S123 · close map of the Tranquebar territory: the crimson spreads from the town over the new villages, Tillali and Perriare; sting
+  { const st = at(91), vl = Wd('villages', 91), view = [79.70, 10.96, 79.94, 11.10];
+    add({ id: 'B7-S123', at: st, beat: 7, year: 1669, enter: 'whip', cam: K.cam.push(1150, 520, 0.07), note: 'new villages: Tillali and Perriare, sting',
+      draw(lt, d, t) { const pr0 = K.realMap('south', { view, grid: 0.05 }); const G = K.GEO.data, SH = -0.006, pr = (lo, la) => pr0(lo + SH, la);   // the 1:10m coast is ~0.5 km off here: nudge the town onto the shore
+        const [tx, ty] = K.place(pr, 'Tranquebar');
+        const terr = () => { ctx.beginPath(); G.territory.forEach(([lo, la], i) => { const [x, y] = pr(lo, la); i ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.closePath(); };
+        K.inkBleed(() => { ctx.beginPath(); ctx.arc(tx, ty, 46, 0, TAU); }, P.crimson, 1, tx, ty, 50, 2);                 // the old town
+        ctx.save(); shapeOf(pr0, G.south.land)(); ctx.clip(); K.inkBleed(terr, '#B04A3E', clamp((t - vl + 0.1) / 0.9), tx, ty, 900, 7, 0.9); if (t > vl + 0.6) { terr(); ctx.strokeStyle = P.ink; ctx.lineWidth = 4; ctx.setLineDash([12, 8]); ctx.stroke(); ctx.setLineDash([]); } ctx.restore();
+        circle(tx, ty, 11, P.ink); K.slip('TRANQUEBAR', tx + 150, ty - 80, 1, 0.02, 34);
+        for (const [n, dt, dx, dy] of [['Tillali', 0.35, -40, -70], ['Perriare', 0.6, -30, 70]]) { const [x, y] = K.place(pr, n); const k = pop(t, vl + dt); if (k > 0) { circle(x, y, 10 * k, P.ink); K.slip(n.toUpperCase(), x + dx, y + dy, k, -0.02, 32); } }
+        K.label('BAY OF BENGAL', 1650, 820, 30, 'rgba(62,44,30,0.6)'); K.slip('NEW VILLAGES, 1669', 520, 240, pop(t, vl + 0.8), -0.03, 40); } });
+    ev(vl, 'ink', { note: 'territory spreads' }); ev(vl + 0.35, 'pop', { note: 'Tillali' }); ev(vl + 0.6, 'pop', { note: 'Perriare' }); ev(Le(91) - 0.05, 'sting', { note: 'beat 7 sting' });
   }
 }

@@ -84,12 +84,23 @@ export function b9(add, ev, snap) {
       draw(lt, d, t) { siegeNight(t, { ring: 0 }); ctx.save(); ctx.globalAlpha = 0.55 * clamp(lt / 1.0); ctx.fillStyle = '#F2C98A'; ctx.fillRect(-300, -300, W + 600, 700); ctx.restore(); } });
     ev(st + 0.2, 'appear', { note: 'dawn', type: 'swell', dur: 1.0 });
   }
-  // S162-163 · the walled town fills with life; era bar races 1674 → 1845; stat card; music resolves on "years"
-  { const st = at(117), yr = Wd('years', 118);
-    add({ id: 'B9-S162', at: st, beat: 9, year: 1674, yearAt: (lt) => lerp(1674, 1845, eio(clamp((lt - 0.4) / 3.6))), cam: K.cam.drift(100, 960, 540, 1.05), note: 'the flag flies on to 1845',
-      draw(lt, d, t) { market(t, clamp(lt / 2)); K.danishFlag(1500, 560, 260, t, { pole: 300 }); },
-      overlay(lt, d, t) { K.statCard('UNTIL 1845', 'DANISH RULE AT TRANQUEBAR', 520, 330, pop(t, Wd('another', 118)), { date: 1, size: 76 }); } });
-    ev(st + 0.4, 'flag', { note: 'flag' }); ev(Wd('another', 118), 'stat', { note: 'until 1845' }); ev(yr, 'sting', { note: 'resolve', type: 'bell', gain: 0.5 });
+  // S162 · the walled town fills with life; the flag flies over Tranquebar
+  { const st = at(117);
+    add({ id: 'B9-S162', at: st, beat: 9, year: 1674, cam: K.cam.drift(100, 960, 540, 1.05), note: 'the flag flew over Tranquebar',
+      draw(lt, d, t) { market(t, clamp(lt / 1.5)); K.danishFlag(1500, 560, 260, t, { pole: 300 }); } });
+    ev(st + 0.4, 'flag', { note: 'flag' });
+  }
+  // S163 · the whole of Danish India (posts pop in) as the era bar races 1674 → 1845; stat card; music resolves on "years"
+  { const st = at(118), yr = Wd('years', 118), an = Wd('another', 118), dur = Le(118) + 0.3 - st;
+    const POSTS = [['Tranquebar', 'R'], ['Serampore', 'R'], ['Balasore', 'L'], ['Pipli', ''], ['Patna', 'B'], ['Ganjam', ''], ['Bandar', ''], ['Madras', ''], ['Pundichery', ''], ['Tegnapatnam', ''], ['Porto Novo', ''], ['Calicut', 'L'], ['Oddeway Torre', ''], ['Cochin', ''], ['Colachel', 'L'], ['Trincomalee', ''], ['Nicobar Islands', 'R']];
+    add({ id: 'B9-S163', at: st, beat: 9, year: 1674, yearAt: (lt) => lerp(1674, 1845, eio(clamp((lt - 0.2) / (dur - 0.4)))), enter: 'whip', cam: K.cam.push(980, 560, 0.05), note: 'Danish India, to 1845',
+      draw(lt, d, t) { const pr = K.realMap('sea', { view: [60, 2.5, 108, 28.5] }); const [tx, ty] = K.place(pr, 'Tranquebar');
+        K.inkBleed(() => { ctx.beginPath(); ctx.arc(tx, ty, 22, 0, TAU); }, P.crimson, 1, tx, ty, 26, 2);
+        POSTS.forEach(([n, lab], i) => { const k = pop(t, st + 0.15 + i * 0.1, 0.2); if (k <= 0) return; const [x, y] = K.place(pr, n); circle(x, y, 11 * k, P.crimson); ctx.strokeStyle = P.ink; ctx.lineWidth = 3; ctx.beginPath(); ctx.arc(x, y, 11 * k, 0, TAU); ctx.stroke();
+          if (lab === 'R') K.label(n.toUpperCase(), x + 22, y, 22, P.ink, 'left'); else if (lab === 'L') K.label(n.toUpperCase(), x - 22, y, 22, P.ink, 'right'); else if (lab === 'B') K.label(n.toUpperCase(), x, y + 30, 22, P.ink); });
+        K.slip('DANISH INDIA', 1560, 620, pop(t, st + 0.1), 0.02, 46); },
+      overlay(lt, d, t) { K.statCard('UNTIL 1845', 'DANISH RULE AT TRANQUEBAR', 420, 330, pop(t, an), { date: 1, size: 76 }); } });
+    ev(st + 0.15, 'pop', { note: 'posts pop in' }); ev(an, 'stat', { note: 'until 1845' }); ev(yr, 'sting', { note: 'resolve', type: 'bell', gain: 0.5 });
   }
   // S164 · end screen: "watch next" placeholders, the flag; bottom-right 420x260 left clear
   { const st = Le(118) + 0.3;
