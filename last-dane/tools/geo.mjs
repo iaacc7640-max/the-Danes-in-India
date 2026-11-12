@@ -43,10 +43,11 @@ const geo = {
   world: { box: [-40, -50, 140, 70], land: region('land-110m.json', [-40, -50, 140, 70], 0.25, 2) },
   south: { box: [75.5, 7.5, 83.5, 14.2], land: region('land-10m.json', [75.5, 7.5, 83.5, 14.2], 0.01, 0.002) },
   sea: { box: [74, -12, 126, 26], land: region('land-50m.json', [74, -12, 126, 26], 0.06, 0.05) },
+  north: { box: [2, 52.5, 24, 62], land: region('land-50m.json', [2, 52.5, 24, 62], 0.02, 0.002) },
   places: {
     Tranquebar: [79.855, 11.029], Tanjore: [79.137, 10.787], Karaikal: [79.838, 10.925], Negapatam: [79.843, 10.766],
     Gingee: [79.418, 12.253], Madurai: [78.120, 9.925], Copenhagen: [12.568, 55.676], Kungsbacka: [12.077, 57.487],
-    'Cape of Good Hope': [18.474, -34.357], Bantam: [106.152, -6.034], Makassar: [119.423, -5.147], Bengal: [88.36, 22.57],
+    'Cape of Good Hope': [18.474, -34.357], Bantam: [106.152, -6.034], Makassar: [119.423, -5.147], Bengal: [88.36, 22.57], Halland: [12.85, 56.75], Java: [110.0, -7.4],
   },
 };
 fs.writeFileSync(path.resolve(path.dirname(new URL(import.meta.url).pathname), '../data/geo.json'), JSON.stringify(geo));
