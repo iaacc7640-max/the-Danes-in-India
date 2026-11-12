@@ -51,8 +51,8 @@ export function b3(add, ev, snap) {
   }
   // S56 · India map: the only crimson star; SNAP on "India"
   { const st = at(43), ch = Wd('charge', 43), ind = Wd('india', 43);
-    add({ id: 'B3-S56', at: st, beat: 3, year: 1655, enter: 'whip', cam: K.cam.push(1120, 600, 0.07), snaps: [snap(ind, 1150, 640, 1.3)], note: "Denmark's only colony in India",
-      draw(lt, d, t) { const pr = K.realMap('sea', { view: [66, 4, 96, 30] }); const [tx, ty] = K.place(pr, 'Tranquebar'); K.inkBleed(() => { ctx.beginPath(); ctx.arc(tx, ty, 40, 0, TAU); }, P.crimson, clamp((t - ch) / 0.6), tx, ty, 48, 2); circle(tx, ty, 9, P.ink); K.slip('THE ONLY DANISH COLONY', tx - 330, ty - 160, pop(t, ch + 0.3), -0.02, 36); } });
+    add({ id: 'B3-S56', at: st, beat: 3, year: 1655, enter: 'whip', cam: K.cam.push(860, 700, 0.07), snaps: [snap(ind, 860, 760, 1.3)], note: "Denmark's only colony in India",
+      draw(lt, d, t) { const pr = K.realMap('sea', { view: [70, 4, 92, 24] }); const [tx, ty] = K.place(pr, 'Tranquebar'); K.inkBleed(() => { ctx.beginPath(); ctx.arc(tx, ty, 40, 0, TAU); }, P.crimson, clamp((t - ch) / 0.6), tx, ty, 48, 2); circle(tx, ty, 9, P.ink); K.slip('THE ONLY DANISH COLONY', tx - 330, ty - 160, pop(t, ch + 0.3), -0.02, 36); } });
     ev(ch, 'ink', { note: 'the only colony' });
   }
   // S57 · the Nayak's green tide pulses at the map's inland edge on "enemy"; sting

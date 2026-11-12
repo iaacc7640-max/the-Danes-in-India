@@ -49,7 +49,7 @@ const geo = {
   source: 'Natural Earth (public domain) via world-atlas 2.0.2',
   world: { box: [-90, -60, 170, 78], land: region('land-110m.json', [-90, -60, 170, 78], 0.25, 2) },
   south: { box: [75.5, 7.5, 83.5, 14.2], land: region('land-10m.json', [75.5, 7.5, 83.5, 14.2], 0.01, 0.002) },
-  sea: { box: [74, -12, 126, 26], land: region('land-50m.json', [74, -12, 126, 26], 0.06, 0.05) },
+  sea: { box: [58, -12, 126, 32], land: region('land-50m.json', [58, -12, 126, 32], 0.06, 0.05) },
   north: { box: [2, 52.5, 24, 62], land: region('land-50m.json', [2, 52.5, 24, 62], 0.02, 0.002) },
   countries: (() => { const t = JSON.parse(fs.readFileSync(path.join(SRC, 'countries-50m.json'))), fc = topo.feature(t, t.objects.countries), o = {};
     for (const n of ['Denmark', 'Sweden', 'Norway', 'Germany']) o[n] = region(null, [2, 52.5, 24, 62], 0.02, 0.002, fc.features.filter((f) => f.properties.name === n)); return o; })(),
