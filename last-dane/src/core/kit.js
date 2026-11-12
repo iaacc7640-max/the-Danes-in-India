@@ -190,12 +190,12 @@ export function geoRoute(pr, pts, p = 1, o = {}) {
 }
 
 // ── ink bleed: a colour soaks into a shape from a point, in blotchy waves (p 0..1) ──
-export function inkBleed(path, color, p, ox, oy, maxR = 600, seed = 1) {
+export function inkBleed(path, color, p, ox, oy, maxR = 600, seed = 1, alpha = 0.82) {
   if (p <= 0) return; ctx.save(); path(); ctx.clip();
   const R = maxR * eio2(clamp(p));
   ctx.fillStyle = color; ctx.beginPath();
   for (let i = 0; i < 14; i++) { const a = i / 14 * TAU + rnd(seed + i) * 0.4, rr2 = R * (0.55 + 0.45 * rnd(seed + i * 3)); ctx.moveTo(ox + Math.cos(a) * rr2 * 0.6 + R * 0.3, oy + Math.sin(a) * rr2 * 0.6); ctx.arc(ox + Math.cos(a) * rr2 * 0.6, oy + Math.sin(a) * rr2 * 0.6, R * (0.35 + 0.25 * rnd(seed + i * 7)), 0, TAU); }
-  ctx.arc(ox, oy, R * 0.75, 0, TAU); ctx.globalAlpha = 0.82; ctx.fill('nonzero');
+  ctx.arc(ox, oy, R * 0.75, 0, TAU); ctx.globalAlpha *= alpha; ctx.fill('nonzero');
   ctx.restore();
 }
 const eio2 = (t) => (t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);

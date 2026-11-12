@@ -38,15 +38,26 @@ export function b1(add, ev, snap) {
       overlay(lt, d, t) { const k = t - 18.0; if (k >= 0 && k <= 1.2) { ctx.save(); ctx.globalAlpha = clamp(Math.min(k / 0.15, (1.2 - k) / 0.2)); K.slip('THE LAST DANE', 1490, 200, eob(clamp(k / 0.25)), 0.02, 44); ctx.restore(); } } });
     ev(18.0, 'card', { note: 'THE LAST DANE title slip' }); ev(nm + 0.45, 'pop', { note: 'name slip' }); ev(home, 'route', { note: 'hometown arrow', dur: 0.6 });
   }
-  // S11 · Scandinavia: Halland bleeds Danish crimson, then flips to Swedish blue on "Sweden"
+  // S11 · Scandinavia, real borders: 1639 Denmark (crimson) holds Skåne, Halland, Blekinge, Gotland; on "Sweden" they turn Swedish blue
   { const st = at(9), dk = Wd('denmark', 9), sw = Wd('sweden', 9);
-    add({ id: 'B1-S11', at: st, beat: 1, year: 1639, enter: 'whip', cam: K.cam.push(1000, 520, 0.06), note: 'map: Kungsbacka then Danish, now Swedish',
-      draw(lt, d, t) { const pr = K.realMap('north', { view: [5.5, 54.0, 19.5, 59.6] }); const [hx, hy] = K.place(pr, 'Halland'), [kx, ky] = K.place(pr, 'Kungsbacka'), [cx, cy] = K.place(pr, 'Copenhagen');
-        const land = () => { ctx.beginPath(); for (const ring of K.GEO.data.north.land) ring.forEach(([lo, la], i) => { const [px, py] = pr(lo, la); i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }); };
-        K.inkBleed(land, P.crimson, clamp((t - dk + 0.2) / 0.8), hx, hy, 150, 4); K.inkBleed(land, P.royal, clamp((t - sw) / 0.7), hx, hy, 170, 9);
-        circle(kx, ky, 11, P.ink); K.slip('KUNGSBACKA', kx + 170, ky - 30, 1, -0.02, 34); circle(cx, cy, 11, P.ink); K.slip('COPENHAGEN', cx + 190, cy - 20, 1, 0.02, 30);
-        K.slip(t > sw ? 'NOW SWEDEN' : 'THEN DENMARK', hx + 330, hy + 30, t > sw ? pop(t, sw) : pop(t, dk), 0.03, 38); } });
-    ev(dk, 'ink', { note: 'Halland crimson' }); ev(sw, 'ink', { note: 'Halland → Swedish blue' });
+    add({ id: 'B1-S11', at: st, beat: 1, year: 1639, enter: 'whip', cam: K.cam.push(1010, 560, 0.06), note: 'map: Kungsbacka in Halland, Danish in 1639, Swedish today',
+      draw(lt, d, t) { const pr = K.realMap('north', { view: [5.5, 54.0, 19.5, 59.6] }), G = K.GEO.data;
+        const shape = (rings) => () => { ctx.beginPath(); for (const ring of rings) ring.forEach(([lo, la], i) => { const [px, py] = pr(lo, la); i ? ctx.lineTo(px, py) : ctx.moveTo(px, py); }); ctx.closePath(); };
+        const fill = (rings, col, a) => { ctx.save(); ctx.globalAlpha = a; shape(rings)(); ctx.fillStyle = col; ctx.fill('evenodd'); ctx.restore(); };
+        const border = (rings) => { shape(rings)(); ctx.strokeStyle = 'rgba(62,44,30,0.75)'; ctx.lineWidth = 3; ctx.setLineDash([10, 6]); ctx.stroke(); ctx.setLineDash([]); };
+        fill(G.countries.Sweden, '#6F86A6', 0.9); fill(G.countries.Denmark, P.crimson, 0.8);
+        const prov = ['Skåne', 'Halland', 'Blekinge', 'Gotland'].flatMap((n) => G.provinces[n]);
+        const [hx, hy] = K.place(pr, 'Halland'), [kx, ky] = K.place(pr, 'Kungsbacka'), [cx, cy] = K.place(pr, 'Copenhagen');
+        K.inkBleed(shape(prov), '#B04A3E', 0.35 + 0.65 * clamp((t - dk + 0.3) / 0.6), hx, hy + 120, 900, 4, 1);
+        K.inkBleed(shape(prov), '#6F86A6', clamp((t - sw) / 0.45), hx, hy, 900, 9, 0.9 / 0.8);
+        for (const n of ['Denmark', 'Sweden', 'Norway', 'Germany']) border(G.countries[n]);
+        shape(G.provinces.Halland)(); ctx.strokeStyle = P.ink; ctx.lineWidth = 5; ctx.stroke();
+        const lab = (txt, lo, la, sz = 34) => { const [x, y] = pr(lo, la); K.label(txt, x, y, sz, P.ink); };
+        lab('SWEDEN', 15.3, 57.6, 44); lab('NORWAY', 8.3, 58.3, 30); lab('DENMARK', 9.1, 56.1, 36); lab('GERMANY', 10.5, 54.25, 30);
+        circle(kx, ky, 11, P.ink); K.slip('KUNGSBACKA', kx - 190, ky - 40, 1, -0.02, 32); circle(cx, cy, 11, P.ink); K.slip('COPENHAGEN', cx - 210, cy - 50, 1, 0.02, 28);
+        const [lx, ly] = pr(13.9, 56.85); K.slip('HALLAND', lx + 40, ly, 1, 0.02, 30);
+        K.slip(t > sw ? 'TODAY: SWEDEN' : '1639: DENMARK', 1600, 790, t > sw ? pop(t, sw) : pop(t, dk), 0.03, 40); } });
+    ev(dk, 'ink', { note: 'old Danish provinces glow crimson' }); ev(sw, 'ink', { note: 'provinces turn Swedish blue' });
   }
   // S12 · the crowd: hats and gold; he is plain; COMMONER; they turn away on "nobody"
   { const st = at(10), cm = Wd('commoner', 10), nb = Wd('nobody', 10);

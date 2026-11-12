@@ -78,7 +78,19 @@ def main():
     voice = a.voice or S.get('voice', 'am_michael'); speed = a.speed or S.get('speed', 1.0)
     k = Kokoro(str(KDIR / 'kokoro-v1.0.onnx'), str(KDIR / 'voices-v1.0.bin'))
     lang = 'en-gb' if voice.startswith('b') else 'en-us'
-    say = lambda text, sp=None: trim(np.asarray(k.create(text, voice=voice, speed=sp or speed, lang=lang)[0], dtype=np.float64))
+    PRON = S.get('pron', {})                     # name -> IPA: the voice reads these exactly (text keeps real spellings)
+    pat = re.compile('(' + '|'.join(re.escape(n) for n in sorted(PRON, key=len, reverse=True)) + r")('s)?") if PRON else None
+    def to_ph(text):
+        if not pat: return text, False
+        out, last = [], 0
+        for m in pat.finditer(text):
+            if text[last:m.start()].strip(): out.append(k.tokenizer.phonemize(text[last:m.start()], lang))
+            out.append(PRON[m.group(1)] + ('z' if m.group(2) else '')); last = m.end()
+        if text[last:].strip(): out.append(k.tokenizer.phonemize(text[last:], lang))
+        return ' '.join(o.strip() for o in out if o.strip()), True
+    def say(text, sp=None):
+        ph, isph = to_ph(text)
+        return trim(np.asarray(k.create(ph, voice=voice, speed=sp or speed, lang=lang, is_phonemes=isph)[0], dtype=np.float64))
     # group the lines into whole sentences (a line ending in . ? ! closes one; "break": true forces a close)
     groups, cur = [], []
     for i, ln in enumerate(S['lines']):

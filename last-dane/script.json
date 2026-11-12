@@ -79,14 +79,14 @@
  "lines": [
   {
    "beat": 0,
-   "text": "Trang-keh-bar, southern India, sixteen sixty.",
+   "text": "Tranquebar, southern India, sixteen sixty.",
    "caps": "*Tranquebar, southern India, 1660.",
    "speed": 1.27,
    "gap": 0.12
   },
   {
    "beat": 0,
-   "text": "The king of Tan-jore's army has surrounded the town,",
+   "text": "The king of Tanjore's army has surrounded the town,",
    "caps": "The king of Tanjore's *army | has *surrounded the town,",
    "speed": 1.27,
    "gap": 0.12
@@ -128,12 +128,12 @@
   },
   {
    "beat": 1,
-   "text": "His name was Es-kil An-der-sen,",
+   "text": "His name was Eskild Andersen,",
    "caps": "His *name was | *Eskild Andersen,"
   },
   {
    "beat": 1,
-   "text": "called Kongs-backa after his hometown,",
+   "text": "called Kongsbakke after his hometown,",
    "caps": "called *Kongsbakke | after his *hometown,"
   },
   {
@@ -163,12 +163,12 @@
   },
   {
    "beat": 1,
-   "text": "Dans-borg, at Trang-keh-bar.",
+   "text": "Dansborg, at Tranquebar.",
    "caps": "*Dansborg, at Tranquebar."
   },
   {
    "beat": 1,
-   "text": "The Danes rented the village from the Naa-yuk of Tan-jore,",
+   "text": "The Danes rented the village from the Nayak of Tanjore,",
    "caps": "The Danes *rented the village | from the Nayak of *Tanjore,"
   },
   {
@@ -183,7 +183,7 @@
   },
   {
    "beat": 1,
-   "text": "that his ship, the Kris-chans-hown,",
+   "text": "that his ship, the Christianshavn,",
    "caps": "that his *ship, | the *Christianshavn,"
   },
   {
@@ -244,7 +244,7 @@
   },
   {
    "beat": 2,
-   "text": "Trang-keh-bar was now an orphan:",
+   "text": "Tranquebar was now an orphan:",
    "caps": "*Tranquebar was now | an *orphan:"
   },
   {
@@ -259,7 +259,7 @@
   },
   {
    "beat": 2,
-   "text": "Kongs-backa, now the fort's quartermaster,",
+   "text": "Kongsbakke, now the fort's quartermaster,",
    "caps": "Kongsbakke, now the fort's *quartermaster,"
   },
   {
@@ -285,7 +285,7 @@
   },
   {
    "beat": 3,
-   "text": "the governor, Pole Han-sen Kor-sur, died.",
+   "text": "the governor, Poul Hansen Korsør, died.",
    "caps": "the *governor, | Poul Hansen Korsør, *died."
   },
   {
@@ -321,12 +321,12 @@
   },
   {
    "beat": 4,
-   "text": "The Naa-yuk of Tan-jore, Vi-jaya Raa-gha-va,",
+   "text": "The Nayak of Tanjore, Vijaya Raghava,",
    "caps": "The Nayak of *Tanjore, | *Vijaya Raghava,"
   },
   {
    "beat": 4,
-   "text": "needed money for his own wars against Jin-jee and Ma-doo-rai.",
+   "text": "needed money for his own wars against Gingee and Madurai.",
    "caps": "needed *money | for his own *wars | against Gingee and *Madurai."
   },
   {
@@ -341,17 +341,17 @@
   },
   {
    "beat": 4,
-   "text": "Kongs-backa could not pay,",
+   "text": "Kongsbakke could not pay,",
    "caps": "Kongsbakke could not *pay,"
   },
   {
    "beat": 4,
-   "text": "so the Naa-yuk sent an army.",
+   "text": "so the Nayak sent an army.",
    "caps": "so the *Nayak | sent an *army."
   },
   {
    "beat": 4,
-   "text": "But Kongs-backa had planned for this.",
+   "text": "But Kongsbakke had planned for this.",
    "caps": "But *Kongsbakke | had *planned for this."
   },
   {
@@ -366,7 +366,7 @@
   },
   {
    "beat": 4,
-   "text": "He knew the Naa-yuk would be back.",
+   "text": "He knew the Nayak would be back.",
    "caps": "He knew the *Nayak | would be *back."
   },
   {
@@ -387,7 +387,7 @@
   },
   {
    "beat": 5,
-   "text": "So Kongs-backa had a wall built around the whole town,",
+   "text": "So Kongsbakke had a wall built around the whole town,",
    "caps": "So Kongsbakke had a *wall | built *around | the whole *town,"
   },
   {
@@ -402,7 +402,7 @@
   },
   {
    "beat": 5,
-   "text": "But when the Naa-yuk returned in sixteen sixty,",
+   "text": "But when the Nayak returned in sixteen sixty,",
    "caps": "But when the *Nayak | *returned in 1660,"
   },
   {
@@ -412,7 +412,7 @@
   },
   {
    "beat": 5,
-   "text": "and Trang-keh-bar still did not fall.",
+   "text": "and Tranquebar still did not fall.",
    "caps": "and *Tranquebar | still did not *fall."
   },
   {
@@ -438,12 +438,12 @@
   },
   {
    "beat": 6,
-   "text": "He sent cargoes east to Ban-tam in Java,",
+   "text": "He sent cargoes east to Bantam in Java,",
    "caps": "He sent cargoes *east | to *Bantam in Java,"
   },
   {
    "beat": 6,
-   "text": "and to Ma-kas-sar.",
+   "text": "and to Makassar.",
    "caps": "and to *Makassar."
   },
   {
@@ -463,7 +463,7 @@
   },
   {
    "beat": 6,
-   "text": "The profits paid for soldiers and for repairs to Dans-borg.",
+   "text": "The profits paid for soldiers and for repairs to Dansborg.",
    "caps": "The *profits paid for soldiers | and for *repairs | to *Dansborg."
   },
   {
@@ -478,7 +478,7 @@
   },
   {
    "beat": 6,
-   "text": "By sixteen sixty-eight, even Kongs-backa thought",
+   "text": "By sixteen sixty-eight, even Kongsbakke thought",
    "caps": "By 1668, even Kongsbakke *thought"
   },
   {
@@ -494,7 +494,7 @@
   },
   {
    "beat": 7,
-   "text": "a Dutchman named Hairt van Haagen,",
+   "text": "a Dutchman named Geert van Hagen,",
    "caps": "a *Dutchman named | *Geert van Hagen,"
   },
   {
@@ -514,17 +514,17 @@
   },
   {
    "beat": 7,
-   "text": "a Danish frigate, the Fair-uh,",
+   "text": "a Danish frigate, the Færø,",
    "caps": "a Danish *frigate, | the *Færø,"
   },
   {
    "beat": 7,
-   "text": "dropped anchor off Trang-keh-bar.",
+   "text": "dropped anchor off Tranquebar.",
    "caps": "dropped *anchor | off *Tranquebar."
   },
   {
    "beat": 7,
-   "text": "One of its officers, Hen-rik Eggers,",
+   "text": "One of its officers, Henrik Eggers,",
    "caps": "One of its *officers, | Henrik *Eggers,"
   },
   {
@@ -534,12 +534,12 @@
   },
   {
    "beat": 7,
-   "text": "if Kongs-backa was dead and the town was lost.",
+   "text": "if Kongsbakke was dead and the town was lost.",
    "caps": "if Kongsbakke was *dead | and the town was *lost."
   },
   {
    "beat": 7,
-   "text": "Instead, he found Kongs-backa alive,",
+   "text": "Instead, he found Kongsbakke alive,",
    "caps": "*Instead, he found | Kongsbakke *alive,"
   },
   {
@@ -549,7 +549,7 @@
   },
   {
    "beat": 7,
-   "text": "Peace with the Naa-yuk soon followed,",
+   "text": "Peace with the Nayak soon followed,",
    "caps": "*Peace with the Nayak | soon *followed,"
   },
   {
@@ -585,7 +585,7 @@
   },
   {
    "beat": 8,
-   "text": "Kongs-backa complained bitterly:",
+   "text": "Kongsbakke complained bitterly:",
    "caps": "Kongsbakke complained *bitterly:"
   },
   {
@@ -610,7 +610,7 @@
   },
   {
    "beat": 8,
-   "text": "Kongs-backa stayed in command at Dans-borg",
+   "text": "Kongsbakke stayed in command at Dansborg",
    "caps": "*Kongsbakke stayed | in *command at Dansborg"
   },
   {
@@ -641,7 +641,7 @@
   },
   {
    "beat": 9,
-   "text": "Trang-keh-bar was a multicultural town,",
+   "text": "Tranquebar was a multicultural town,",
    "caps": "*Tranquebar was | a *multicultural town,"
   },
   {
@@ -666,7 +666,7 @@
   },
   {
    "beat": 9,
-   "text": "Kongs-backa did not survive because Denmark helped him.",
+   "text": "Kongsbakke did not survive because Denmark helped him.",
    "caps": "*Kongsbakke did not survive | because *Denmark helped him."
   },
   {
@@ -686,7 +686,7 @@
   },
   {
    "beat": 9,
-   "text": "the Danish flag flew over Trang-keh-bar",
+   "text": "the Danish flag flew over Tranquebar",
    "caps": "the Danish *flag | flew over *Tranquebar"
   },
   {
@@ -701,28 +701,47 @@
    "tension"
   ],
   [
-   17.39,
+   17.38,
    "nordic"
   ],
   [
-   122.85,
+   121.63,
    "tension"
   ],
   [
-   182.61,
+   180.31,
    "nordic"
   ],
   [
-   216.43,
+   213.76,
    "hope"
   ],
   [
-   250.63,
+   247.22,
    "tension"
   ],
   [
-   281.71,
+   278.19,
    "warm"
   ]
- ]
+ ],
+ "pron": {
+  "Tranquebar": "tɹˈaŋkəbɑː",
+  "Tanjore": "tandʒˈɔː",
+  "Eskild Andersen": "ˈɛskɪl ˈanəsən",
+  "Kongsbakke": "kˈɒŋsbakə",
+  "Dansborg": "dˈansbɔːɡ",
+  "Christianshavn": "kɹˈɪstʃənzhˌaʊn",
+  "Nayak": "nˈɑːjək",
+  "Poul Hansen Korsør": "pˈəʊl hˈansən kˈɔːsɜː",
+  "Vijaya Raghava": "vˈɪdʒəjə ɹˈɑːɡəvə",
+  "Gingee": "dʒˈɪndʒiː",
+  "Madurai": "mˈadʊɹaɪ",
+  "Bantam": "bˈantəm",
+  "Makassar": "məkˈasə",
+  "Geert van Hagen": "hˈeət van hˈɑːɡən",
+  "Færø": "fˈɛəɹə",
+  "Henrik Eggers": "hˈɛnɹɪk ˈɛɡəz",
+  "Eggers": "ˈɛɡəz"
+ }
 }
