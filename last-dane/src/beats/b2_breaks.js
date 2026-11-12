@@ -50,8 +50,8 @@ export function b2(add, ev, snap) {
     add({ id: 'B2-S35', at: st, beat: 2, year: 1650, cam: K.cam.push(960, 540, 0.07), snaps: [snap(ds, 960, 520, 1.2)], note: 'company dissolved 1650',
       draw(lt, d, t) { K.parchment(45); const shut = clamp((t - st - 0.3) / 0.25); ctx.save(); ctx.translate(960, 560); ctx.scale(1 - shut * 0.5, 1); ctx.translate(-960, -560); K.ledger(960, 560, 1.0, t, 1, { hand: false }); ctx.restore();
         if (t > bk) K.seal(1380, 380, pop(t, bk) * 0.7, 'C'); K.stamp('DISSOLVED', 960, 560, pop(t, ds, 0.18), -0.12, 110); K.coldWash(0.5); },
-      overlay(lt, d, t) { K.statCard('1650', 'COMPANY DISSOLVED', 1560, 760, pop(t, ds + 0.3), { date: 1, size: 88 }); } });
-    ev(st + 0.3, 'seal', { note: 'ledger slams' }); ev(bk, 'stamp', { note: 'bankrupt seal', gain: 0.5 }); ev(ds + 0.3, 'stat', { note: 'stat 1650' });
+      overlay(lt, d, t) { K.statCard('1650', 'COMPANY DISSOLVED', 1560, 700, pop(t, Wd('sixteen', 28)), { date: 1, size: 88 }); } });
+    ev(st + 0.3, 'seal', { note: 'ledger slams' }); ev(bk, 'stamp', { note: 'bankrupt seal', gain: 0.5 }); ev(Wd('sixteen', 28), 'stat', { note: 'stat 1650' });
   }
   // S36 · map: Tranquebar's crimson drains to an outline; ORPHAN
   { const st = at(30), or = Wd('orphan', 30);
