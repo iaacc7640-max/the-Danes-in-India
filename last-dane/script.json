@@ -1,20 +1,698 @@
 {
-  "title": "Denmark Forgot Him. He Held the Fort.",
-  "voice": "bm_george",
-  "speed": 0.95,
-  "lead": 0.0,
-  "outro": 1.0,
-  "gap": 0.3,
-  "music": "tension",
-  "era": [1620, 1643, 1650, 1655, 1660, 1669, 1674, 1845],
-  "eraFromBeat": 1,
-  "beats": [
-    { "n": 0 },
-    { "n": 1, "year": "1639", "hook": "A NOBODY SAILS" }
-  ],
-  "sources": ["ENGINE TEST ONLY: real script comes at gate 2"],
-  "lines": [
-    { "beat": 0, "text": "Tranquebar, southern India, sixteen sixty.", "caps": "*Tranquebar, | southern India, | *1660." },
-    { "beat": 1, "text": "The Danes rented the village from the Nayak of Tanjore.", "caps": "The Danes *rented | the village | from the Nayak of *Tanjore." }
-  ]
+ "title": "Denmark Forgot Him. He Held the Fort.",
+ "voice": "bm_george",
+ "speed": 0.95,
+ "lead": 0.0,
+ "outro": 4.0,
+ "gap": 0.32,
+ "music": "score",
+ "era": [
+  1620,
+  1643,
+  1650,
+  1655,
+  1660,
+  1669,
+  1674,
+  1845
+ ],
+ "eraFromBeat": 1,
+ "beats": [
+  {
+   "n": 0
+  },
+  {
+   "n": 1,
+   "year": "1639",
+   "hook": "A NOBODY SAILS"
+  },
+  {
+   "n": 2,
+   "year": "1648",
+   "hook": "THE COLONY BREAKS"
+  },
+  {
+   "n": 3,
+   "year": "1655",
+   "hook": "CHOSEN"
+  },
+  {
+   "n": 4,
+   "year": "1655",
+   "hook": "THE RENT GOES UP"
+  },
+  {
+   "n": 5,
+   "year": "1660",
+   "hook": "NINE MONTHS"
+  },
+  {
+   "n": 6,
+   "year": "1660s",
+   "hook": "TRADER, PRIVATEER"
+  },
+  {
+   "n": 7,
+   "year": "1669",
+   "hook": "A SAIL!"
+  },
+  {
+   "n": 8,
+   "year": "1669",
+   "hook": "NO THANKS"
+  },
+  {
+   "n": 9,
+   "year": "TODAY",
+   "hook": "HERO?"
+  }
+ ],
+ "sources": [
+  "Wikipedia, 'Eskild Andersen Kongsbakke' (c.1620 Kungsbacka; commoner; joined the company 1639, sailed on the Christianshavn, arrived 1643; quartermaster under Leyel; chosen by soldiers and inhabitants after Korsør's death in 1655 because no Danish officers remained, almost illiterate; 1655 siege withstood with local support; a nine-month siege; town wall credited to him by Sethuraman, disputed by Bjørn Westerbeek Dahl; privateering against Mughal Bengal, trade with Bantam and Makassar; Denmark sceptical of his reports; Geert van Hagen sent 1668; Færø reached Tranquebar May 1669 with Henrik Eggers, who was to take over if Kongsbakke had died; villages of Poreiar, Tillali and Erikutanchery ceded; royal letter of 10 Dec 1670 reprimanded both men but reconfirmed Kongsbakke; quote 'That is the honor one gets for 5 years of service in Europe and 30 years in India'; Eggers sent to Copenhagen 1672 to explain himself; died at Dansborg c.1674; presumed Indian wife; Kay Larsen 1907 'the brave and loyal man who saved the fortress'; recent research less heroic, multicultural enclave)",
+  "Wikipedia, 'Sieges of Tranquebar (1655-1669)' (Vijaya Raghava needed money for campaigns against Gingee and Madurai; higher tribute demanded 1655; Christianshavn the last Danish ship for 26 years; 1648 mutiny, Leyel arrested; company dissolved 1650; Korsør died 7 September 1655; 1655 defence with local Indian and Portuguese mercenaries; 1660 siege of nine months; wall around the whole town and four new towers; before that only Dansborg fortified; peace in 1669)",
+  "Wikipedia, 'Danish India' (treaty with the Nayak of Tanjore, 20 November 1620, village granted for tribute; Tranquebar sold to Britain in 1845)",
+  "Wikipedia, 'Willem Leyel' and related pages (Christianshavn left Denmark 8 November 1639, delayed for years, reached Tranquebar September 1643)",
+  "Wikipedia, 'Treaty of Roskilde' (Halland, including Kungsbacka, ceded by Denmark to Sweden in 1658)",
+  "Danmarkshistorien (Aarhus University), 'Eskild Andersen Kongsbakke, ca. 1620-1674' (via search summary: instructions for the case that Kongsbakke had died and Tranquebar might no longer be Danish; Eggers found him alive, became vice-commander; van Hagen a Dutch sergeant from Negapatam)",
+  "Background: Rajiv Ahir, A Brief History of Modern India, 'The Danes'; National Museum of Denmark, 'Tranquebar: Danish era 1620-1845'"
+ ],
+ "lines": [
+  {
+   "beat": 0,
+   "text": "Trang-keh-bar, southern India, sixteen sixty.",
+   "caps": "*Tranquebar, southern India, 1660.",
+   "speed": 1.27,
+   "gap": 0.12
+  },
+  {
+   "beat": 0,
+   "text": "The king of Tan-jore's army has surrounded the town,",
+   "caps": "The king of Tanjore's *army | has *surrounded the town,",
+   "speed": 1.27,
+   "gap": 0.12
+  },
+  {
+   "beat": 0,
+   "text": "and it will stay for nine months.",
+   "caps": "and it *will stay | for nine *months.",
+   "speed": 1.27,
+   "gap": 0.12
+  },
+  {
+   "beat": 0,
+   "text": "Inside the walls, the man in charge can barely read.",
+   "caps": "Inside the *walls, | the man in *charge | can barely *read.",
+   "speed": 1.27,
+   "gap": 0.12
+  },
+  {
+   "beat": 0,
+   "text": "He has no orders, no money and no ships from home.",
+   "caps": "He has no *orders, | no *money | and no *ships from home.",
+   "speed": 1.27,
+   "gap": 0.12
+  },
+  {
+   "beat": 0,
+   "text": "Denmark has forgotten him.",
+   "caps": "Denmark has *forgotten him.",
+   "speed": 1.27,
+   "gap": 0.12
+  },
+  {
+   "beat": 0,
+   "text": "So why is he still flying its flag?",
+   "caps": "So *why is he | still flying its *flag?",
+   "gap": 0.6,
+   "speed": 1.1
+  },
+  {
+   "beat": 1,
+   "text": "His name was Es-kil An-der-sen,",
+   "caps": "His *name was | *Eskild Andersen,"
+  },
+  {
+   "beat": 1,
+   "text": "called Kongs-bak-keh after his hometown,",
+   "caps": "called *Kongsbakke | after his *hometown,"
+  },
+  {
+   "beat": 1,
+   "text": "then part of Denmark and now in Sweden.",
+   "caps": "then part of *Denmark | and now in *Sweden."
+  },
+  {
+   "beat": 1,
+   "text": "He was a commoner, nobody important.",
+   "caps": "He was a *commoner, | nobody *important."
+  },
+  {
+   "beat": 1,
+   "text": "But he was stubborn, and that would matter.",
+   "caps": "But he was *stubborn, | and that would *matter."
+  },
+  {
+   "beat": 1,
+   "text": "In sixteen thirty-nine he joined the Danish East India Company",
+   "caps": "In 1639 he *joined | the Danish East India *Company"
+  },
+  {
+   "beat": 1,
+   "text": "and sailed for its only fort in India,",
+   "caps": "and *sailed for | its only *fort in India,"
+  },
+  {
+   "beat": 1,
+   "text": "Dans-borg, at Trang-keh-bar.",
+   "caps": "*Dansborg, at Tranquebar."
+  },
+  {
+   "beat": 1,
+   "text": "The Danes rented the village from the Naa-yuk of Tan-jore,",
+   "caps": "The Danes *rented the village | from the Nayak of *Tanjore,"
+  },
+  {
+   "beat": 1,
+   "text": "in return for a yearly tribute.",
+   "caps": "in *return for | a yearly *tribute."
+  },
+  {
+   "beat": 1,
+   "text": "But the voyage was so hard",
+   "caps": "But the *voyage | was so *hard"
+  },
+  {
+   "beat": 1,
+   "text": "that his ship, the Kris-chans-hown,",
+   "caps": "that his *ship, | the *Christianshavn,"
+  },
+  {
+   "beat": 1,
+   "text": "only reached India in sixteen forty-three.",
+   "caps": "only *reached India | in *1643."
+  },
+  {
+   "beat": 1,
+   "text": "Nobody aboard knew it yet,",
+   "caps": "*Nobody aboard | *knew it yet,"
+  },
+  {
+   "beat": 1,
+   "text": "but it would be the last Danish ship to arrive",
+   "caps": "but it would be | the *last Danish ship | to *arrive"
+  },
+  {
+   "beat": 1,
+   "text": "for twenty-six years.",
+   "caps": "for *26 years.",
+   "gap": 0.8
+  },
+  {
+   "beat": 2,
+   "text": "But soon the colony began to fall apart.",
+   "caps": "But soon the *colony | began to fall *apart."
+  },
+  {
+   "beat": 2,
+   "text": "In sixteen forty-eight, the garrison mutinied",
+   "caps": "In *1648, | the garrison *mutinied"
+  },
+  {
+   "beat": 2,
+   "text": "and arrested its own governor.",
+   "caps": "and *arrested | its own *governor."
+  },
+  {
+   "beat": 2,
+   "text": "Back home, Denmark was worn down by wars with Sweden,",
+   "caps": "*Back home, | Denmark was *worn down | by wars with *Sweden,"
+  },
+  {
+   "beat": 2,
+   "text": "so no ships could be spared.",
+   "caps": "so no *ships | could be *spared."
+  },
+  {
+   "beat": 2,
+   "text": "Therefore, in sixteen fifty,",
+   "caps": "Therefore, in *1650,"
+  },
+  {
+   "beat": 2,
+   "text": "the bankrupt company was simply dissolved.",
+   "caps": "the *bankrupt company | was simply *dissolved."
+  },
+  {
+   "beat": 2,
+   "text": "Trang-keh-bar was now an orphan:",
+   "caps": "*Tranquebar was now | an *orphan:"
+  },
+  {
+   "beat": 2,
+   "text": "a fort, a few soldiers,",
+   "caps": "a *fort, | a few *soldiers,"
+  },
+  {
+   "beat": 2,
+   "text": "and a rent bill nobody in Copenhagen meant to pay.",
+   "caps": "and a *rent bill | nobody in *Copenhagen | meant to *pay."
+  },
+  {
+   "beat": 2,
+   "text": "Kongs-bak-keh, now the fort's quartermaster,",
+   "caps": "Kongsbakke, now the fort's *quartermaster,"
+  },
+  {
+   "beat": 2,
+   "text": "did the one thing he could.",
+   "caps": "did the *one thing | he *could."
+  },
+  {
+   "beat": 2,
+   "text": "He made the soldiers stand guard and drill,",
+   "caps": "He made the *soldiers | stand guard and *drill,"
+  },
+  {
+   "beat": 2,
+   "text": "as if help were coming.",
+   "caps": "as if *help | were *coming.",
+   "gap": 0.8
+  },
+  {
+   "beat": 3,
+   "text": "On the seventh of September, sixteen fifty-five,",
+   "caps": "On the *7th | of September, *1655,"
+  },
+  {
+   "beat": 3,
+   "text": "the governor, Pole Han-sen Kor-sur, died.",
+   "caps": "the *governor, | Poul Hansen Korsør, *died."
+  },
+  {
+   "beat": 3,
+   "text": "No Danish officer was left to replace him.",
+   "caps": "No Danish *officer | was left to *replace him."
+  },
+  {
+   "beat": 3,
+   "text": "So the soldiers and townspeople",
+   "caps": "So the *soldiers | and *townspeople"
+  },
+  {
+   "beat": 3,
+   "text": "chose the quartermaster.",
+   "caps": "*chose the quartermaster."
+  },
+  {
+   "beat": 3,
+   "text": "An almost illiterate commoner",
+   "caps": "An almost *illiterate commoner"
+  },
+  {
+   "beat": 3,
+   "text": "was now in charge of Denmark's only colony in India.",
+   "caps": "was now in *charge | of Denmark's *only colony | in *India."
+  },
+  {
+   "beat": 3,
+   "text": "And almost at once, he had an enemy.",
+   "caps": "And *almost at once, | he had an *enemy.",
+   "gap": 0.8
+  },
+  {
+   "beat": 4,
+   "text": "The Naa-yuk of Tan-jore, Vi-jaya Raa-gha-va,",
+   "caps": "The Nayak of *Tanjore, | *Vijaya Raghava,"
+  },
+  {
+   "beat": 4,
+   "text": "needed money for his own wars against Jin-jee and Ma-doo-rai.",
+   "caps": "needed *money | for his own *wars | against Gingee and *Madurai."
+  },
+  {
+   "beat": 4,
+   "text": "He saw a weak colony,",
+   "caps": "He saw a *weak colony,"
+  },
+  {
+   "beat": 4,
+   "text": "and he raised the rent.",
+   "caps": "and he *raised the rent."
+  },
+  {
+   "beat": 4,
+   "text": "Kongs-bak-keh could not pay,",
+   "caps": "Kongsbakke could not *pay,"
+  },
+  {
+   "beat": 4,
+   "text": "so the Naa-yuk sent an army.",
+   "caps": "so the *Nayak | sent an *army."
+  },
+  {
+   "beat": 4,
+   "text": "But Kongs-bak-keh had planned for this.",
+   "caps": "But *Kongsbakke | had *planned for this."
+  },
+  {
+   "beat": 4,
+   "text": "With Portuguese mercenaries and local Indian allies,",
+   "caps": "With *Portuguese mercenaries | and local *Indian allies,"
+  },
+  {
+   "beat": 4,
+   "text": "he held the fort, and the siege was lifted.",
+   "caps": "he *held the fort, | and the siege was *lifted."
+  },
+  {
+   "beat": 4,
+   "text": "He knew the Naa-yuk would be back.",
+   "caps": "He knew the *Nayak | would be *back."
+  },
+  {
+   "beat": 4,
+   "text": "So he started building.",
+   "caps": "So he started *building.",
+   "gap": 0.8
+  },
+  {
+   "beat": 5,
+   "text": "Until then, only the fort was defended.",
+   "caps": "*Until then, | only the *fort | was *defended."
+  },
+  {
+   "beat": 5,
+   "text": "When danger came, the townspeople crowded inside.",
+   "caps": "When *danger came, | the *townspeople | crowded *inside."
+  },
+  {
+   "beat": 5,
+   "text": "So Kongs-bak-keh had a wall built around the whole town,",
+   "caps": "So Kongsbakke had a *wall | built *around | the whole *town,"
+  },
+  {
+   "beat": 5,
+   "text": "with new towers for cannon.",
+   "caps": "with new *towers | for *cannon."
+  },
+  {
+   "beat": 5,
+   "text": "Historians still argue over how much of that wall was really his.",
+   "caps": "Historians still *argue | over how *much | of that *wall | was really *his."
+  },
+  {
+   "beat": 5,
+   "text": "But when the Naa-yuk returned in sixteen sixty,",
+   "caps": "But when the *Nayak | *returned in 1660,"
+  },
+  {
+   "beat": 5,
+   "text": "the siege lasted nine months,",
+   "caps": "the siege *lasted | *nine months,"
+  },
+  {
+   "beat": 5,
+   "text": "and Trang-keh-bar still did not fall.",
+   "caps": "and *Tranquebar | still did not *fall."
+  },
+  {
+   "beat": 5,
+   "text": "Holding a wall, though, costs money.",
+   "caps": "*Holding a wall, though, | costs *money."
+  },
+  {
+   "beat": 5,
+   "text": "And he had none.",
+   "caps": "And he had *none.",
+   "gap": 0.8
+  },
+  {
+   "beat": 6,
+   "text": "So the commander became a trader,",
+   "caps": "So the *commander | became a *trader,"
+  },
+  {
+   "beat": 6,
+   "text": "and sometimes a privateer.",
+   "caps": "and *sometimes | a *privateer."
+  },
+  {
+   "beat": 6,
+   "text": "He sent cargoes east to Ban-tam in Java,",
+   "caps": "He sent cargoes *east | to *Bantam in Java,"
+  },
+  {
+   "beat": 6,
+   "text": "and to Ma-kas-sar.",
+   "caps": "and to *Makassar."
+  },
+  {
+   "beat": 6,
+   "text": "He waged a private war at sea",
+   "caps": "He waged a *private war | at *sea"
+  },
+  {
+   "beat": 6,
+   "text": "against the Mughal governor of Bengal,",
+   "caps": "against the *Mughal governor | of *Bengal,"
+  },
+  {
+   "beat": 6,
+   "text": "seized his ships and sold their cargo.",
+   "caps": "*seized his ships | and sold their *cargo."
+  },
+  {
+   "beat": 6,
+   "text": "The profits paid for soldiers and for repairs to Dans-borg.",
+   "caps": "The *profits paid for soldiers | and for *repairs | to *Dansborg."
+  },
+  {
+   "beat": 6,
+   "text": "He sent hopeful reports home to Copenhagen.",
+   "caps": "He sent *hopeful reports | home to *Copenhagen."
+  },
+  {
+   "beat": 6,
+   "text": "Copenhagen did not believe them.",
+   "caps": "Copenhagen did not *believe them."
+  },
+  {
+   "beat": 6,
+   "text": "By sixteen sixty-eight, even Kongs-bak-keh thought",
+   "caps": "By 1668, even Kongsbakke *thought"
+  },
+  {
+   "beat": 6,
+   "text": "the colony could not survive alone.",
+   "caps": "the *colony | could not survive *alone.",
+   "gap": 0.8
+  },
+  {
+   "beat": 7,
+   "text": "So he sent one last messenger,",
+   "caps": "So he *sent | one last *messenger,"
+  },
+  {
+   "beat": 7,
+   "text": "a Dutchman named Hairt van Haa-gen,",
+   "caps": "a *Dutchman named | *Geert van Hagen,"
+  },
+  {
+   "beat": 7,
+   "text": "all the way to Copenhagen.",
+   "caps": "*all the way | to *Copenhagen."
+  },
+  {
+   "beat": 7,
+   "text": "This time, it worked.",
+   "caps": "This time, it *worked."
+  },
+  {
+   "beat": 7,
+   "text": "In May sixteen sixty-nine,",
+   "caps": "In May *1669,"
+  },
+  {
+   "beat": 7,
+   "text": "a Danish frigate, the Fair-uh,",
+   "caps": "a Danish *frigate, | the *Færø,"
+  },
+  {
+   "beat": 7,
+   "text": "dropped anchor off Trang-keh-bar.",
+   "caps": "dropped *anchor | off *Tranquebar."
+  },
+  {
+   "beat": 7,
+   "text": "One of its officers, Hen-rik Eg-gers,",
+   "caps": "One of its *officers, | Henrik *Eggers,"
+  },
+  {
+   "beat": 7,
+   "text": "carried instructions for what to do",
+   "caps": "carried *instructions | for *what to do"
+  },
+  {
+   "beat": 7,
+   "text": "if Kongs-bak-keh was dead and the town was lost.",
+   "caps": "if Kongsbakke was *dead | and the town was *lost."
+  },
+  {
+   "beat": 7,
+   "text": "Instead, he found Kongs-bak-keh alive,",
+   "caps": "*Instead, he found | Kongsbakke *alive,"
+  },
+  {
+   "beat": 7,
+   "text": "and the colony in good order.",
+   "caps": "and the *colony | in good *order."
+  },
+  {
+   "beat": 7,
+   "text": "Peace with the Naa-yuk soon followed,",
+   "caps": "*Peace with the Nayak | soon *followed,"
+  },
+  {
+   "beat": 7,
+   "text": "and it even gave the Danes new villages.",
+   "caps": "and it even *gave | the Danes new *villages.",
+   "gap": 0.8
+  },
+  {
+   "beat": 8,
+   "text": "You might expect a hero's welcome.",
+   "caps": "You might *expect | a *hero's welcome."
+  },
+  {
+   "beat": 8,
+   "text": "He got the opposite.",
+   "caps": "He got the *opposite."
+  },
+  {
+   "beat": 8,
+   "text": "Eg-gers and his officers looked down",
+   "caps": "Eggers and his *officers | looked *down"
+  },
+  {
+   "beat": 8,
+   "text": "on the commoner who could barely write,",
+   "caps": "on the *commoner | who could *barely write,"
+  },
+  {
+   "beat": 8,
+   "text": "and pushed him aside.",
+   "caps": "and *pushed him aside."
+  },
+  {
+   "beat": 8,
+   "text": "Kongs-bak-keh complained bitterly:",
+   "caps": "Kongsbakke complained *bitterly:"
+  },
+  {
+   "beat": 8,
+   "text": "that is the honour one gets",
+   "caps": "that is the *honour | *one gets"
+  },
+  {
+   "beat": 8,
+   "text": "for five years of service in Europe,",
+   "caps": "for five *years | of service in *Europe,"
+  },
+  {
+   "beat": 8,
+   "text": "and thirty years in India.",
+   "caps": "and *thirty years | in *India."
+  },
+  {
+   "beat": 8,
+   "text": "The king backed him, and called Eg-gers home.",
+   "caps": "The king *backed him, | and called Eggers *home."
+  },
+  {
+   "beat": 8,
+   "text": "Kongs-bak-keh stayed in command at Dans-borg",
+   "caps": "*Kongsbakke stayed | in *command at Dansborg"
+  },
+  {
+   "beat": 8,
+   "text": "until he died, around sixteen seventy-four.",
+   "caps": "until he *died, | around *1674."
+  },
+  {
+   "beat": 8,
+   "text": "He never saw home again.",
+   "caps": "He never saw *home again.",
+   "gap": 0.8
+  },
+  {
+   "beat": 9,
+   "text": "For a long time, Danish historians called him",
+   "caps": "For a *long time, | Danish *historians called him"
+  },
+  {
+   "beat": 9,
+   "text": "the loyal man who saved the colony.",
+   "caps": "the *loyal man | who saved the *colony."
+  },
+  {
+   "beat": 9,
+   "text": "Today, some argue the story is less simple.",
+   "caps": "Today, some *argue | the story is less *simple."
+  },
+  {
+   "beat": 9,
+   "text": "Trang-keh-bar was a multicultural town,",
+   "caps": "*Tranquebar was | a *multicultural town,"
+  },
+  {
+   "beat": 9,
+   "text": "he may have married an Indian woman,",
+   "caps": "he *may have married | an *Indian woman,"
+  },
+  {
+   "beat": 9,
+   "text": "and trading inside Asia may have paid better",
+   "caps": "and trading inside *Asia | may have paid *better"
+  },
+  {
+   "beat": 9,
+   "text": "than waiting for ships from Copenhagen.",
+   "caps": "than *waiting | for ships from *Copenhagen."
+  },
+  {
+   "beat": 9,
+   "text": "Maybe that is the real lesson.",
+   "caps": "*Maybe that is | the real *lesson."
+  },
+  {
+   "beat": 9,
+   "text": "Kongs-bak-keh did not survive because Denmark helped him.",
+   "caps": "*Kongsbakke did not survive | because *Denmark helped him."
+  },
+  {
+   "beat": 9,
+   "text": "He survived because he stopped waiting for Denmark,",
+   "caps": "He *survived because | he stopped *waiting | for *Denmark,"
+  },
+  {
+   "beat": 9,
+   "text": "and became part of India.",
+   "caps": "and *became | part of *India."
+  },
+  {
+   "beat": 9,
+   "text": "And because he held on,",
+   "caps": "And because he *held on,"
+  },
+  {
+   "beat": 9,
+   "text": "the Danish flag flew over Trang-keh-bar",
+   "caps": "the Danish *flag | flew over *Tranquebar"
+  },
+  {
+   "beat": 9,
+   "text": "for another hundred and seventy years.",
+   "caps": "for another *170 years."
+  }
+ ]
 }

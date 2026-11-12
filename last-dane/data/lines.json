@@ -1,18 +1,721 @@
 {
- "duration": 7.259,
- "estimated": true,
+ "duration": 328.993,
+ "voice": "bm_george",
+ "speed": 0.95,
  "lines": [
   {
    "i": 0,
-   "text": "Tranquebar, southern India, sixteen sixty.",
+   "text": "Trang-keh-bar, southern India, sixteen sixty.",
    "start": 0.0,
-   "end": 2.2
+   "end": 2.498
   },
   {
    "i": 1,
-   "text": "The Danes rented the village from the Nayak of Tanjore.",
-   "start": 2.5,
-   "end": 6.259
+   "text": "The king of Tan-jore's army has surrounded the town,",
+   "start": 2.618,
+   "end": 5.238
+  },
+  {
+   "i": 2,
+   "text": "and it will stay for nine months.",
+   "start": 5.568,
+   "end": 6.962
+  },
+  {
+   "i": 3,
+   "text": "Inside the walls, the man in charge can barely read.",
+   "start": 7.082,
+   "end": 9.948
+  },
+  {
+   "i": 4,
+   "text": "He has no orders, no money and no ships from home.",
+   "start": 10.068,
+   "end": 12.98
+  },
+  {
+   "i": 5,
+   "text": "Denmark has forgotten him.",
+   "start": 13.1,
+   "end": 14.596
+  },
+  {
+   "i": 6,
+   "text": "So why is he still flying its flag?",
+   "start": 14.716,
+   "end": 16.866
+  },
+  {
+   "i": 7,
+   "text": "His name was Es-kil An-der-sen,",
+   "start": 17.466,
+   "end": 19.746
+  },
+  {
+   "i": 8,
+   "text": "called Kongs-bak-keh after his hometown,",
+   "start": 20.106,
+   "end": 22.486
+  },
+  {
+   "i": 9,
+   "text": "then part of Denmark and now in Sweden.",
+   "start": 22.886,
+   "end": 25.617
+  },
+  {
+   "i": 10,
+   "text": "He was a commoner, nobody important.",
+   "start": 25.937,
+   "end": 28.59
+  },
+  {
+   "i": 11,
+   "text": "But he was stubborn, and that would matter.",
+   "start": 28.91,
+   "end": 31.295
+  },
+  {
+   "i": 12,
+   "text": "In sixteen thirty-nine he joined the Danish East India Company",
+   "start": 31.615,
+   "end": 35.795
+  },
+  {
+   "i": 13,
+   "text": "and sailed for its only fort in India,",
+   "start": 36.225,
+   "end": 38.535
+  },
+  {
+   "i": 14,
+   "text": "Dans-borg, at Trang-keh-bar.",
+   "start": 38.815,
+   "end": 41.034
+  },
+  {
+   "i": 15,
+   "text": "The Danes rented the village from the Naa-yuk of Tan-jore,",
+   "start": 41.354,
+   "end": 44.914
+  },
+  {
+   "i": 16,
+   "text": "in return for a yearly tribute.",
+   "start": 45.354,
+   "end": 47.575
+  },
+  {
+   "i": 17,
+   "text": "But the voyage was so hard",
+   "start": 47.895,
+   "end": 49.625
+  },
+  {
+   "i": 18,
+   "text": "that his ship, the Kris-chans-hown,",
+   "start": 49.795,
+   "end": 52.005
+  },
+  {
+   "i": 19,
+   "text": "only reached India in sixteen forty-three.",
+   "start": 52.385,
+   "end": 55.08
+  },
+  {
+   "i": 20,
+   "text": "Nobody aboard knew it yet,",
+   "start": 55.4,
+   "end": 57.13
+  },
+  {
+   "i": 21,
+   "text": "but it would be the last Danish ship to arrive",
+   "start": 57.6,
+   "end": 59.869
+  },
+  {
+   "i": 22,
+   "text": "for twenty-six years.",
+   "start": 59.869,
+   "end": 61.34
+  },
+  {
+   "i": 23,
+   "text": "But soon the colony began to fall apart.",
+   "start": 62.14,
+   "end": 65.209
+  },
+  {
+   "i": 24,
+   "text": "In sixteen forty-eight, the garrison mutinied",
+   "start": 65.529,
+   "end": 68.539
+  },
+  {
+   "i": 25,
+   "text": "and arrested its own governor.",
+   "start": 68.909,
+   "end": 70.574
+  },
+  {
+   "i": 26,
+   "text": "Back home, Denmark was worn down by wars with Sweden,",
+   "start": 70.894,
+   "end": 74.324
+  },
+  {
+   "i": 27,
+   "text": "so no ships could be spared.",
+   "start": 74.674,
+   "end": 76.297
+  },
+  {
+   "i": 28,
+   "text": "Therefore, in sixteen fifty,",
+   "start": 76.617,
+   "end": 78.487
+  },
+  {
+   "i": 29,
+   "text": "the bankrupt company was simply dissolved.",
+   "start": 78.847,
+   "end": 81.38
+  },
+  {
+   "i": 30,
+   "text": "Trang-keh-bar was now an orphan:",
+   "start": 81.7,
+   "end": 83.67
+  },
+  {
+   "i": 31,
+   "text": "a fort, a few soldiers,",
+   "start": 84.12,
+   "end": 85.98
+  },
+  {
+   "i": 32,
+   "text": "and a rent bill nobody in Copenhagen meant to pay.",
+   "start": 86.31,
+   "end": 89.597
+  },
+  {
+   "i": 33,
+   "text": "Kongs-bak-keh, now the fort's quartermaster,",
+   "start": 89.918,
+   "end": 92.708
+  },
+  {
+   "i": 34,
+   "text": "did the one thing he could.",
+   "start": 93.068,
+   "end": 94.43
+  },
+  {
+   "i": 35,
+   "text": "He made the soldiers stand guard and drill,",
+   "start": 94.75,
+   "end": 97.4
+  },
+  {
+   "i": 36,
+   "text": "as if help were coming.",
+   "start": 97.76,
+   "end": 98.879
+  },
+  {
+   "i": 37,
+   "text": "On the seventh of September, sixteen fifty-five,",
+   "start": 99.679,
+   "end": 102.539
+  },
+  {
+   "i": 38,
+   "text": "the governor, Pole Han-sen Kor-sur, died.",
+   "start": 102.929,
+   "end": 105.791
+  },
+  {
+   "i": 39,
+   "text": "No Danish officer was left to replace him.",
+   "start": 106.111,
+   "end": 109.481
+  },
+  {
+   "i": 40,
+   "text": "So the soldiers and townspeople",
+   "start": 109.801,
+   "end": 111.871
+  },
+  {
+   "i": 41,
+   "text": "chose the quartermaster.",
+   "start": 112.101,
+   "end": 113.552
+  },
+  {
+   "i": 42,
+   "text": "An almost illiterate commoner",
+   "start": 113.872,
+   "end": 115.352
+  },
+  {
+   "i": 43,
+   "text": "was now in charge of Denmark's only colony in India.",
+   "start": 115.752,
+   "end": 119.653
+  },
+  {
+   "i": 44,
+   "text": "And almost at once, he had an enemy.",
+   "start": 119.973,
+   "end": 122.404
+  },
+  {
+   "i": 45,
+   "text": "The Naa-yuk of Tan-jore, Vi-jaya Raa-gha-va,",
+   "start": 123.204,
+   "end": 126.204
+  },
+  {
+   "i": 46,
+   "text": "needed money for his own wars against Jin-jee and Ma-doo-rai.",
+   "start": 126.644,
+   "end": 130.55
+  },
+  {
+   "i": 47,
+   "text": "He saw a weak colony,",
+   "start": 130.87,
+   "end": 132.3
+  },
+  {
+   "i": 48,
+   "text": "and he raised the rent.",
+   "start": 132.58,
+   "end": 133.96
+  },
+  {
+   "i": 49,
+   "text": "Kongs-bak-keh could not pay,",
+   "start": 134.28,
+   "end": 135.99
+  },
+  {
+   "i": 50,
+   "text": "so the Naa-yuk sent an army.",
+   "start": 136.3,
+   "end": 138.014
+  },
+  {
+   "i": 51,
+   "text": "But Kongs-bak-keh had planned for this.",
+   "start": 138.334,
+   "end": 140.854
+  },
+  {
+   "i": 52,
+   "text": "With Portuguese mercenaries and local Indian allies,",
+   "start": 141.174,
+   "end": 144.654
+  },
+  {
+   "i": 53,
+   "text": "he held the fort, and the siege was lifted.",
+   "start": 145.074,
+   "end": 147.855
+  },
+  {
+   "i": 54,
+   "text": "He knew the Naa-yuk would be back.",
+   "start": 148.175,
+   "end": 150.398
+  },
+  {
+   "i": 55,
+   "text": "So he started building.",
+   "start": 150.718,
+   "end": 152.305
+  },
+  {
+   "i": 56,
+   "text": "Until then, only the fort was defended.",
+   "start": 153.105,
+   "end": 156.0
+  },
+  {
+   "i": 57,
+   "text": "When danger came, the townspeople crowded inside.",
+   "start": 156.32,
+   "end": 159.761
+  },
+  {
+   "i": 58,
+   "text": "So Kongs-bak-keh had a wall built around the whole town,",
+   "start": 160.081,
+   "end": 163.491
+  },
+  {
+   "i": 59,
+   "text": "with new towers for cannon.",
+   "start": 163.891,
+   "end": 165.479
+  },
+  {
+   "i": 60,
+   "text": "Historians still argue over how much of that wall was really his.",
+   "start": 165.799,
+   "end": 170.373
+  },
+  {
+   "i": 61,
+   "text": "But when the Naa-yuk returned in sixteen sixty,",
+   "start": 170.693,
+   "end": 173.323
+  },
+  {
+   "i": 62,
+   "text": "the siege lasted nine months,",
+   "start": 173.713,
+   "end": 175.533
+  },
+  {
+   "i": 63,
+   "text": "and Trang-keh-bar still did not fall.",
+   "start": 175.913,
+   "end": 178.193
+  },
+  {
+   "i": 64,
+   "text": "Holding a wall, though, costs money.",
+   "start": 178.513,
+   "end": 180.864
+  },
+  {
+   "i": 65,
+   "text": "And he had none.",
+   "start": 181.184,
+   "end": 182.296
+  },
+  {
+   "i": 66,
+   "text": "So the commander became a trader,",
+   "start": 183.096,
+   "end": 184.966
+  },
+  {
+   "i": 67,
+   "text": "and sometimes a privateer.",
+   "start": 185.316,
+   "end": 187.331
+  },
+  {
+   "i": 68,
+   "text": "He sent cargoes east to Ban-tam in Java,",
+   "start": 187.651,
+   "end": 190.541
+  },
+  {
+   "i": 69,
+   "text": "and to Ma-kas-sar.",
+   "start": 190.921,
+   "end": 192.181
+  },
+  {
+   "i": 70,
+   "text": "He waged a private war at sea",
+   "start": 192.501,
+   "end": 194.431
+  },
+  {
+   "i": 71,
+   "text": "against the Mughal governor of Bengal,",
+   "start": 194.681,
+   "end": 196.801
+  },
+  {
+   "i": 72,
+   "text": "seized his ships and sold their cargo.",
+   "start": 197.211,
+   "end": 199.876
+  },
+  {
+   "i": 73,
+   "text": "The profits paid for soldiers and for repairs to Dans-borg.",
+   "start": 200.196,
+   "end": 204.132
+  },
+  {
+   "i": 74,
+   "text": "He sent hopeful reports home to Copenhagen.",
+   "start": 204.452,
+   "end": 207.581
+  },
+  {
+   "i": 75,
+   "text": "Copenhagen did not believe them.",
+   "start": 207.901,
+   "end": 210.425
+  },
+  {
+   "i": 76,
+   "text": "By sixteen sixty-eight, even Kongs-bak-keh thought",
+   "start": 210.745,
+   "end": 214.065
+  },
+  {
+   "i": 77,
+   "text": "the colony could not survive alone.",
+   "start": 214.145,
+   "end": 216.289
+  },
+  {
+   "i": 78,
+   "text": "So he sent one last messenger,",
+   "start": 217.089,
+   "end": 218.999
+  },
+  {
+   "i": 79,
+   "text": "a Dutchman named Hairt van Haa-gen,",
+   "start": 219.419,
+   "end": 221.699
+  },
+  {
+   "i": 80,
+   "text": "all the way to Copenhagen.",
+   "start": 222.069,
+   "end": 223.86
+  },
+  {
+   "i": 81,
+   "text": "This time, it worked.",
+   "start": 224.18,
+   "end": 225.742
+  },
+  {
+   "i": 82,
+   "text": "In May sixteen sixty-nine,",
+   "start": 226.062,
+   "end": 227.752
+  },
+  {
+   "i": 83,
+   "text": "a Danish frigate, the Fair-uh,",
+   "start": 228.052,
+   "end": 230.072
+  },
+  {
+   "i": 84,
+   "text": "dropped anchor off Trang-keh-bar.",
+   "start": 230.372,
+   "end": 232.233
+  },
+  {
+   "i": 85,
+   "text": "One of its officers, Hen-rik Eg-gers,",
+   "start": 232.553,
+   "end": 235.653
+  },
+  {
+   "i": 86,
+   "text": "carried instructions for what to do",
+   "start": 236.033,
+   "end": 237.893
+  },
+  {
+   "i": 87,
+   "text": "if Kongs-bak-keh was dead and the town was lost.",
+   "start": 237.963,
+   "end": 241.129
+  },
+  {
+   "i": 88,
+   "text": "Instead, he found Kongs-bak-keh alive,",
+   "start": 241.449,
+   "end": 243.989
+  },
+  {
+   "i": 89,
+   "text": "and the colony in good order.",
+   "start": 244.359,
+   "end": 246.168
+  },
+  {
+   "i": 90,
+   "text": "Peace with the Naa-yuk soon followed,",
+   "start": 246.488,
+   "end": 248.728
+  },
+  {
+   "i": 91,
+   "text": "and it even gave the Danes new villages.",
+   "start": 249.128,
+   "end": 251.486
+  },
+  {
+   "i": 92,
+   "text": "You might expect a hero's welcome.",
+   "start": 252.286,
+   "end": 254.71
+  },
+  {
+   "i": 93,
+   "text": "He got the opposite.",
+   "start": 255.03,
+   "end": 256.441
+  },
+  {
+   "i": 94,
+   "text": "Eg-gers and his officers looked down",
+   "start": 256.761,
+   "end": 259.784
+  },
+  {
+   "i": 95,
+   "text": "on the commoner who could barely write,",
+   "start": 259.784,
+   "end": 261.961
+  },
+  {
+   "i": 96,
+   "text": "and pushed him aside.",
+   "start": 262.341,
+   "end": 263.533
+  },
+  {
+   "i": 97,
+   "text": "Kongs-bak-keh complained bitterly:",
+   "start": 263.853,
+   "end": 265.863
+  },
+  {
+   "i": 98,
+   "text": "that is the honour one gets",
+   "start": 266.393,
+   "end": 267.904
+  },
+  {
+   "i": 99,
+   "text": "for five years of service in Europe,",
+   "start": 267.904,
+   "end": 269.783
+  },
+  {
+   "i": 100,
+   "text": "and thirty years in India.",
+   "start": 270.233,
+   "end": 272.067
+  },
+  {
+   "i": 101,
+   "text": "The king backed him, and called Eg-gers home.",
+   "start": 272.387,
+   "end": 275.985
+  },
+  {
+   "i": 102,
+   "text": "Kongs-bak-keh stayed in command at Dans-borg",
+   "start": 276.305,
+   "end": 279.015
+  },
+  {
+   "i": 103,
+   "text": "until he died, around sixteen seventy-four.",
+   "start": 279.385,
+   "end": 282.619
+  },
+  {
+   "i": 104,
+   "text": "He never saw home again.",
+   "start": 282.939,
+   "end": 284.741
+  },
+  {
+   "i": 105,
+   "text": "For a long time, Danish historians called him",
+   "start": 285.541,
+   "end": 288.594
+  },
+  {
+   "i": 106,
+   "text": "the loyal man who saved the colony.",
+   "start": 288.594,
+   "end": 291.16
+  },
+  {
+   "i": 107,
+   "text": "Today, some argue the story is less simple.",
+   "start": 291.48,
+   "end": 294.445
+  },
+  {
+   "i": 108,
+   "text": "Trang-keh-bar was a multicultural town,",
+   "start": 294.765,
+   "end": 297.295
+  },
+  {
+   "i": 109,
+   "text": "he may have married an Indian woman,",
+   "start": 297.725,
+   "end": 299.615
+  },
+  {
+   "i": 110,
+   "text": "and trading inside Asia may have paid better",
+   "start": 300.045,
+   "end": 302.973
+  },
+  {
+   "i": 111,
+   "text": "than waiting for ships from Copenhagen.",
+   "start": 302.973,
+   "end": 305.574
+  },
+  {
+   "i": 112,
+   "text": "Maybe that is the real lesson.",
+   "start": 305.894,
+   "end": 308.489
+  },
+  {
+   "i": 113,
+   "text": "Kongs-bak-keh did not survive because Denmark helped him.",
+   "start": 308.809,
+   "end": 312.651
+  },
+  {
+   "i": 114,
+   "text": "He survived because he stopped waiting for Denmark,",
+   "start": 312.971,
+   "end": 316.071
+  },
+  {
+   "i": 115,
+   "text": "and became part of India.",
+   "start": 316.451,
+   "end": 318.005
+  },
+  {
+   "i": 116,
+   "text": "And because he held on,",
+   "start": 318.325,
+   "end": 319.415
+  },
+  {
+   "i": 117,
+   "text": "the Danish flag flew over Trang-keh-bar",
+   "start": 319.795,
+   "end": 322.35
+  },
+  {
+   "i": 118,
+   "text": "for another hundred and seventy years.",
+   "start": 322.35,
+   "end": 324.673
   }
  ]
 }
