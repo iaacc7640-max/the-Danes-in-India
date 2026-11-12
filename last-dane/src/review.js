@@ -36,6 +36,32 @@ function thumb() {
   ctx.fillStyle = K.P.crimson; ctx.fillText('FORGOTTEN', 0, 12); ctx.restore();
   K.slip('14 YEARS', 330, 170, 1.25, -0.04, 70);
 }
+/** a big torn-paper word block (thumbnail headline) centred at x, y */
+function bigWord(word, x, y, size, rot = -0.03, col = K.P.crimson) {
+  ctx.save(); ctx.translate(x, y); ctx.rotate(rot); ctx.font = `700 ${size}px Caladea`; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; const w = ctx.measureText(word).width + size * 0.5, h = size * 0.68;
+  K.cut(() => { ctx.beginPath(); ctx.moveTo(-w / 2, -h); for (let xx = -w / 2; xx <= w / 2; xx += 30) ctx.lineTo(xx, -h + (rnd(xx) - 0.5) * 18); for (let xx = w / 2; xx >= -w / 2; xx -= 30) ctx.lineTo(xx, h + (rnd(xx + 7) - 0.5) * 18); ctx.closePath(); }, '#F3E9D2', { shadow: 1.6, edge: 0 });
+  ctx.fillStyle = col; ctx.fillText(word, 0, size * 0.05); ctx.restore();
+}
+function thumbB(t) {             // 26 YEARS: he scans an empty sea
+  K.daySky(201, 620); ctx.save(); ctx.globalAlpha = 0.3; ctx.fillStyle = '#E9A86A'; ctx.fillRect(0, 0, W, 640); ctx.restore(); K.sea(560, 1.2, 4);
+  ctx.save(); ctx.globalAlpha = 0.35; K.ship(1500, 560, 0.28, 0); ctx.restore(); ctx.strokeStyle = K.P.crimson; ctx.lineWidth = 14; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(1420, 400); ctx.lineTo(1590, 580); ctx.moveTo(1590, 400); ctx.lineTo(1420, 580); ctx.stroke();
+  K.person({ who: 'kongsOld', x: 470, y: 1500, h: 1500, t: 0.4, dir: 1, prop: 'spyglass', arm: 75, mood: 'worried' });
+  bigWord('26 YEARS', 1290, 840, 210, -0.03); K.slip('NO SHIP CAME', 1360, 210, 1.3, 0.04, 62);
+}
+function thumbC(t) {             // ABANDONED: night, siege fires behind, one man and a lantern
+  K.nightSky(202, 1.0, 560); K.siegeRing(1100, 700, 1200, 300, 0.8, 1, 0.75); K.cut(K.P_rr(-300, 640, W + 600, 600, 0), '#3A3129', { shadow: 0.5, edge: 4 });
+  K.danishFlag(1600, 600, 260, 0.9, { pole: 330, wind: 1.3 });
+  K.person({ who: 'kongsOld', x: 520, y: 1520, h: 1450, t: 0.3, dir: 1, prop: 'lantern', arm: 105, mood: 'stern' });
+  bigWord('ABANDONED', 1250, 880, 185, -0.03); K.slip('NO HELP CAME', 1180, 170, 1.3, -0.03, 62);
+}
+function thumbD(t) {             // HERO? the 1907 book against a big red question mark
+  K.parchment(203); ctx.save(); ctx.translate(560, 540); ctx.rotate(-0.06); ctx.scale(1.25, 1.25);
+  K.cut(K.P_rr(-300, -380, 600, 760, 12), K.P.wine, { shadow: 1.2, edge: 5 }); ctx.strokeStyle = K.P.gold; ctx.lineWidth = 6; ctx.strokeRect(-260, -340, 520, 680);
+  K.cut(K.P_circ(0, -60, 190), '#E9DCBC', { shadow: 0.5, edge: 4 }); ctx.save(); ctx.beginPath(); ctx.arc(0, -60, 185, 0, Math.PI * 2); ctx.clip(); K.person({ who: 'kongsOld', x: 0, y: 560, h: 700, t: 0, prop: null, mood: 'stern' }); ctx.restore(); K.wreath(0, -60, 215, 1);
+  ctx.restore(); bigWord('HERO', 560, 930, 150, -0.05);
+  ctx.save(); ctx.translate(1420, 470); ctx.rotate(0.08); ctx.font = '700 700px Caladea'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; ctx.lineWidth = 26; ctx.strokeStyle = '#F3E9D2'; ctx.strokeText('?', 0, 0); ctx.fillStyle = K.P.crimson; ctx.fillText('?', 0, 0); ctx.restore();
+  K.slip('OR SURVIVOR?', 1430, 930, 1.3, -0.03, 64);
+}
 function kit(t) {
   K.parchment(8); head('THE LAST DANE · KIT PIECES');
   const cell = (x, y, s, f, name) => { ctx.save(); ctx.translate(x, y); ctx.scale(s, s); f(); ctx.restore(); tag(name, x, y + 150); };
@@ -62,7 +88,7 @@ function kit(t) {
     await document.fonts.load('700 100px Caladea'); await document.fonts.load('900 100px Inter');
     K.setGeo(await (await fetch('data/geo.json')).json());
     if (sheet === 'thumb') { OP.base = new Image(); OP.base.src = 'review/thumb-base.jpg'; await OP.base.decode(); }
-    OP.duration = () => 3; OP.draw = (t) => { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; (sheet === 'kit' ? kit : sheet === 'idle' ? idle : sheet === 'thumb' ? thumb : cast)(t); };
+    OP.duration = () => 3; OP.draw = (t) => { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; ({ kit, idle, thumb, thumbB, thumbC, thumbD }[sheet] || cast)(t); };
     OP.frame = (t, qq = 0.92) => { OP.draw(t); return cv.toDataURL('image/jpeg', qq); };
     OP.ready = true; if (!q.has('capture')) { const loop = (n) => { OP.draw(n / 1000 % 3); requestAnimationFrame(loop); }; requestAnimationFrame(loop); }
   } catch (e) { OP.bootError = String(e && e.stack || e); }
