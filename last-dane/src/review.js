@@ -26,6 +26,16 @@ function idle(t) {
   K.person({ x: 1220, y: 1000, h: 560, who: 'portuguese', t, seed: 3, dir: -1 });
   K.person({ x: 330, y: 1000, h: 560, who: 'defender', t, seed: 7 });
 }
+function thumb() {
+  // 1280x720 thumbnail from the real cold-open lantern frame (review/thumb-base.jpg = film t 3.6 s, no overlays)
+  ctx.drawImage(OP.base, 0, 0, W, H);
+  const g = ctx.createLinearGradient(0, 0, W, 0); g.addColorStop(0, 'rgba(20,22,40,0.45)'); g.addColorStop(0.5, 'rgba(20,22,40,0.0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+  K.danishFlag(1560, 560, 220, 0.6, { pole: 420, wind: 1.3 });
+  ctx.save(); ctx.translate(700, 860); ctx.rotate(-0.03); ctx.font = '700 200px Caladea'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle'; const w = ctx.measureText('FORGOTTEN').width + 120;
+  K.cut(() => { ctx.beginPath(); ctx.moveTo(-w / 2, -150); for (let x = -w / 2; x <= w / 2; x += 30) ctx.lineTo(x, -150 + (rnd(x) - 0.5) * 18); for (let x = w / 2; x >= -w / 2; x -= 30) ctx.lineTo(x, 150 + (rnd(x + 7) - 0.5) * 18); ctx.closePath(); }, '#F3E9D2', { shadow: 1.6, edge: 0 });
+  ctx.fillStyle = K.P.crimson; ctx.fillText('FORGOTTEN', 0, 12); ctx.restore();
+  K.slip('14 YEARS', 330, 170, 1.25, -0.04, 70);
+}
 function kit(t) {
   K.parchment(8); head('THE LAST DANE · KIT PIECES');
   const cell = (x, y, s, f, name) => { ctx.save(); ctx.translate(x, y); ctx.scale(s, s); f(); ctx.restore(); tag(name, x, y + 150); };
@@ -51,7 +61,8 @@ function kit(t) {
   try {
     await document.fonts.load('700 100px Caladea'); await document.fonts.load('900 100px Inter');
     K.setGeo(await (await fetch('data/geo.json')).json());
-    OP.duration = () => 3; OP.draw = (t) => { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; (sheet === 'kit' ? kit : sheet === 'idle' ? idle : cast)(t); };
+    if (sheet === 'thumb') { OP.base = new Image(); OP.base.src = 'review/thumb-base.jpg'; await OP.base.decode(); }
+    OP.duration = () => 3; OP.draw = (t) => { ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.globalAlpha = 1; (sheet === 'kit' ? kit : sheet === 'idle' ? idle : sheet === 'thumb' ? thumb : cast)(t); };
     OP.frame = (t, qq = 0.92) => { OP.draw(t); return cv.toDataURL('image/jpeg', qq); };
     OP.ready = true; if (!q.has('capture')) { const loop = (n) => { OP.draw(n / 1000 % 3); requestAnimationFrame(loop); }; requestAnimationFrame(loop); }
   } catch (e) { OP.bootError = String(e && e.stack || e); }

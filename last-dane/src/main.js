@@ -56,6 +56,8 @@ function draw(t) {
   // overlays: shot overlay, era bar, beat card (none move with the camera)
   if (sh.overlay) { main.save(); sh.overlay(lt, shotEnd(i) - sh.at, t); main.restore(); }
   const S = OP.script, yr = yearAt(t);
+  const bare = new URLSearchParams(location.search).has('bare');          // ?bare=1: no overlays or captions (thumbnail source)
+  if (bare) return;
   if (S.era && sh.beat >= (S.eraFromBeat ?? 1) && yr != null) K.eraBar(S.era, yr, 1);
   const b = OP._beats.find((b) => t >= b.start && t < b.start + 1.25);
   if (b && b.card) K.beatCard(b.card.year, b.card.hook, t - b.start - 0.05);
