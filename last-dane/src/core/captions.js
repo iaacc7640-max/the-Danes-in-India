@@ -34,7 +34,7 @@ export function buildCaptions(script) {
   });
   caps.forEach((c, k) => {
     const next = caps[k + 1], lineEnd = T.lines[c.line].end;
-    c.e = next ? (next.s - lineEnd > 0.7 && next.line !== c.line ? lineEnd + 0.35 : next.s) : T.dur;
+    c.e = next ? (next.s - lineEnd > 0.7 && next.line !== c.line ? lineEnd + 0.35 : next.s) : Math.min(T.dur, lineEnd + 0.6);
   });
   return caps;
 }
@@ -43,5 +43,6 @@ export const captionList = () => caps;
 export function drawCaption(t) {
   const c = caps.find((c) => t >= c.s && t < c.e); if (!c) return;
   const lt = t - c.s, sc = lt < 0.18 ? lerp(0.7, 1, eob(seg(lt, 0, 0.18))) : 1;
-  captionStrip(c.words, W / 2, CAPLOOK.y, sc);
+  const endZone = t > T.dur - 20;                    // last 20 s: keep the bottom-right 420x260 clear for end-screen elements
+  captionStrip(c.words, endZone ? 760 : W / 2, CAPLOOK.y, sc, endZone ? { ...CAPLOOK, maxW: 1100 } : CAPLOOK);
 }

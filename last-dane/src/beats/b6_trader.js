@@ -77,8 +77,8 @@ export function b6(add, ev, snap) {
   // S100-101 · night: Kongsbakke alone, writing by the lantern; the lantern flickers low on "alone"; sting
   { const st = at(76), al = Wd('alone', 77);
     add({ id: 'B6-S100', at: st, beat: 6, year: 1668, enter: 'whip', cam: K.cam.push(860, 520, 0.10), note: 'alone, 1668; sting',
-      draw(lt, d, t) { K.parchment(87); dim(0.7, K.NAVY); cut(P_rr(300, 760, 1320, 50, 6), '#4A3A2E', { shadow: 0.6, edge: 4 }); const low = t > al ? clamp(1 - (t - al) * 0.8, 0.35, 1) : 1; K.lantern(1260, 690, 1.3, t, 1.3 * low); K.ledger(900, 640, 0.45, t, 0.6, { hand: false });
+      draw(lt, d, t) { K.parchment(87); dim(0.7, K.NAVY); cut(P_rr(300, 760, 1320, 50, 6), '#4A3A2E', { shadow: 0.6, edge: 4 }); const low = t > al ? clamp(1 - (t - al) * 0.8, 0.35, 1) : 1; K.lantern(1260, 690, 1.3, t, 1.3 * low); { const pg = clamp((t - st - 2.6) / 0.4); K.ledger(900, 640, 0.45, t, pg > 0 ? 0.2 : 0.6, { hand: false }); if (pg > 0 && pg < 1) { ctx.save(); ctx.translate(900, 640); ctx.scale(1 - 2 * pg, 1); cut(P_rr(0, -120, 180, 240, 4), '#F3E9D2', { shadow: 0.4, edge: 0 }); ctx.restore(); } }
         K.person({ who: 'kongsOld', x: 560, y: 1060, h: 640, t, look: 'down', mood: 'worried', prop: 'quill', arm: 40 }); } });
-    ev(st + 0.5, 'write', { note: 'he writes' }); ev(al, 'appear', { note: 'lantern dims', type: 'swell', dur: 1.0 }); ev(Le(77) - 0.05, 'sting', { note: 'beat 6 sting' });
+    ev(st + 0.5, 'write', { note: 'he writes' }); ev(st + 2.6, 'page', { note: 'he turns the page' }); ev(al, 'appear', { note: 'lantern dims', type: 'swell', dur: 1.0 }); ev(Le(77) - 0.05, 'sting', { note: 'beat 6 sting' });
   }
 }
